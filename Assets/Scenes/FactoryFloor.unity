@@ -481,7 +481,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
-<<<<<<< Updated upstream
 --- !u!1001 &462644580
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -617,8 +616,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8371054583215965529, guid: f401b663faacbc44490f7edecc71b893, type: 3}
   m_PrefabInstance: {fileID: 462644580}
   m_PrefabAsset: {fileID: 0}
-=======
->>>>>>> Stashed changes
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -842,12 +839,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e38f07b2d466d84cb78793f85e55c1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< Updated upstream
   _runMinutes: 2
   clock: {fileID: 3372760263854946597}
-=======
-  _levelTime: 0
->>>>>>> Stashed changes
 --- !u!4 &1937580022
 Transform:
   m_ObjectHideFlags: 0
