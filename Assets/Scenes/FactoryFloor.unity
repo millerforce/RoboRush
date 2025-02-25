@@ -681,11 +681,10 @@ MonoBehaviour:
   pillarPrefab: {fileID: 7217874885885614848, guid: f401b663faacbc44490f7edecc71b893, type: 3}
   workstations:
   - {fileID: 5086067234203226099, guid: 9e826afd083552c4fa46531a2fe349a0, type: 3}
-  - {fileID: 723788737481328696, guid: f2e0bdb9a4f489840a409e18a2156b5f, type: 3}
-  - {fileID: 415911354047727230, guid: d9421e68b38564247a1e67d841cf15fa, type: 3}
+  numberOfWorkstations: 5
+  obstacles:
   - {fileID: 8969927064715959443, guid: dd7c4b73c7c1dda40998a43efb3a6297, type: 3}
-  numberOfWorkstations: 10
-  obstacles: []
+  numberOfObstacles: 0
 --- !u!1 &1937580020
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,6 +910,14 @@ PrefabInstance:
     - target: {fileID: 5784044130935426775, guid: c603a1b1cd643e145a083c1dc6fdcdc0, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6687916716688005233, guid: c603a1b1cd643e145a083c1dc6fdcdc0, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6687916716688005233, guid: c603a1b1cd643e145a083c1dc6fdcdc0, type: 3}
+      propertyPath: m_Constraints
+      value: 116
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
