@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3135405113103862582, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
+      propertyPath: _startLocation
+      value: 
+      objectReference: {fileID: 675006607}
     - target: {fileID: 7698202539296287833, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
       propertyPath: _levelToLoad
       value: BreakRoom
@@ -192,6 +196,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
+--- !u!4 &675006607 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5625702327642645110, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
+  m_PrefabInstance: {fileID: 675006606}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

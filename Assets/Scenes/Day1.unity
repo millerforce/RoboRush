@@ -222,6 +222,10 @@ PrefabInstance:
       propertyPath: walkSpeed
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3135405113103862582, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
+      propertyPath: _startLocation
+      value: 
+      objectReference: {fileID: 394793528}
     - target: {fileID: 6429868848552581721, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
       propertyPath: m_Name
       value: FactoryController

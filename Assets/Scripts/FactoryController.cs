@@ -32,7 +32,7 @@ public class FactoryController : MonoBehaviour
     {
         if (starting)
         {
-            starting = StartAnimation();
+            starting = player.StartAnimation();
         }
         else
         {
@@ -45,17 +45,5 @@ public class FactoryController : MonoBehaviour
             
     }
 
-    bool StartAnimation()
-    {
-        if (!player.transform.position.Equals(startLocation.position)) {
 
-            player.transform.position = Vector3.MoveTowards(player.transform.position, startLocation.position, player.WalkSpeed * Time.deltaTime);
-
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
 }
