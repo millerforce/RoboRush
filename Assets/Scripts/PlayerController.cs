@@ -24,4 +24,5 @@ public class PlayerController : MonoBehaviour
 
         transform.Translate(_moveDirection * speed * Time.deltaTime);
     }
+
 }
