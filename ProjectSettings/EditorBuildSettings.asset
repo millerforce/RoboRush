@@ -8,6 +8,21 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FactoryFloor.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: c01c91abdb47685498e17ed02aa4eb39
+  - enabled: 1
+    path: Assets/Scenes/Day1.unity
+    guid: 4b5f51d0b49772140b349e3f936c4bb7
+  - enabled: 1
+    path: Assets/Scenes/Day2.unity
+    guid: 1b15722f7b2fb0c4993accc4dec42458
+  - enabled: 1
+    path: Assets/Scenes/Day3.unity
+    guid: 4ffa539c15e71704f9f639263c5c5637
+  - enabled: 1
+    path: Assets/Scenes/BreakRoom.unity
+    guid: 9fcfdf4950019df45b078f9e7577d4f0
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

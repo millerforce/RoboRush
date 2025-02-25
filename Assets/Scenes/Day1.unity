@@ -167,6 +167,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 394793528}
     - target: {fileID: 881883940770469449, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
+      propertyPath: _runMinutes
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 881883940770469449, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
       propertyPath: startLocation
       value: 
       objectReference: {fileID: 394793528}
@@ -221,6 +225,10 @@ PrefabInstance:
     - target: {fileID: 6429868848552581721, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
       propertyPath: m_Name
       value: FactoryController
+      objectReference: {fileID: 0}
+    - target: {fileID: 7698202539296287833, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
+      propertyPath: _levelToLoad
+      value: BreakRoom
       objectReference: {fileID: 0}
     - target: {fileID: 8222074584235002509, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
       propertyPath: m_UseGravity

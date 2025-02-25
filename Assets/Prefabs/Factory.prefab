@@ -397,9 +397,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _runMinutes: 0
-  clock: {fileID: 0}
-  startLocation: {fileID: 0}
-  player: {fileID: 0}
+  clock: {fileID: 8556234027340871127}
+  startLocation: {fileID: 5625702327642645110}
+  player: {fileID: 3135405113103862582}
 --- !u!1 &7012094515664139641
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,12 +924,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 2178974998927139309}
     m_Modifications:
     - target: {fileID: 381081671546591690, guid: c603a1b1cd643e145a083c1dc6fdcdc0, type: 3}
+      propertyPath: WalkSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 381081671546591690, guid: c603a1b1cd643e145a083c1dc6fdcdc0, type: 3}
       propertyPath: _walkSpeed
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 381081671546591690, guid: c603a1b1cd643e145a083c1dc6fdcdc0, type: 3}
       propertyPath: _sprintSpeed
       value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1362826307525250256, guid: c603a1b1cd643e145a083c1dc6fdcdc0, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 4248894357133790201, guid: c603a1b1cd643e145a083c1dc6fdcdc0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -975,6 +983,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5784044130935426775, guid: c603a1b1cd643e145a083c1dc6fdcdc0, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 6687916716688005233, guid: c603a1b1cd643e145a083c1dc6fdcdc0, type: 3}
       propertyPath: m_UseGravity
       value: 1
@@ -997,6 +1009,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4248894357133790201, guid: c603a1b1cd643e145a083c1dc6fdcdc0, type: 3}
   m_PrefabInstance: {fileID: 3371768492151640828}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3135405113103862582 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 381081671546591690, guid: c603a1b1cd643e145a083c1dc6fdcdc0, type: 3}
+  m_PrefabInstance: {fileID: 3371768492151640828}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb8210306d5995345839892d11348c26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3476452353796532253
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1049,6 +1072,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Clock
       objectReference: {fileID: 0}
+    - target: {fileID: 4454048938311224061, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 6318485345019679461, guid: a6eda7f5cfa20ee4680647945b060805, type: 2}
+    - target: {fileID: 6026873462389419966, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: a6eda7f5cfa20ee4680647945b060805, type: 2}
+    - target: {fileID: 6026873462389419966, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 6318485345019679461, guid: a6eda7f5cfa20ee4680647945b060805, type: 2}
+    - target: {fileID: 6026873462389419966, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1059,6 +1098,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3628570244732163930, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
   m_PrefabInstance: {fileID: 3476452353796532253}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8556234027340871127 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4142450202766221878, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
+  m_PrefabInstance: {fileID: 3476452353796532253}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11692f1cbe306a2478f3cd3426032acd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4644336383480917109
 PrefabInstance:
   m_ObjectHideFlags: 0

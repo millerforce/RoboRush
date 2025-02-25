@@ -127,6 +127,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 881883940770469449, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
+      propertyPath: _runMinutes
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2178974998927139309, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.66779375
@@ -171,6 +175,10 @@ PrefabInstance:
       propertyPath: _levelToLoad
       value: BreakRoom
       objectReference: {fileID: 0}
+    - target: {fileID: 8222074584235002509, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9064458310592261835, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
       propertyPath: m_Name
       value: Factory
@@ -180,7 +188,7 @@ PrefabInstance:
     - {fileID: 5689084477458867846, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1382431948477458648, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 2533852662654325161, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
