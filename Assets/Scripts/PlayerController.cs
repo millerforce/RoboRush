@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -8,6 +9,9 @@ public class PlayerController : MonoBehaviour
     private float _sprintSpeed = 3f;
 
     private Vector3 _moveDirection;
+
+    [SerializeField]
+    private Transform _startLocation;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,6 +29,20 @@ public class PlayerController : MonoBehaviour
         transform.Translate(_moveDirection * speed * Time.deltaTime);
     }
 
-   
+    public bool StartAnimation()
+    {
+        if (!transform.position.Equals(_startLocation.position))
+        {
+
+            transform.position = Vector3.MoveTowards(transform.position, _startLocation.position, WalkSpeed * Time.deltaTime);
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 
 }
