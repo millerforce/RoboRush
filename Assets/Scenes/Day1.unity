@@ -166,6 +166,10 @@ PrefabInstance:
       propertyPath: _levelStart
       value: 
       objectReference: {fileID: 394793528}
+    - target: {fileID: 881883940770469449, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
+      propertyPath: startLocation
+      value: 
+      objectReference: {fileID: 394793528}
     - target: {fileID: 2178974998927139309, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -207,8 +211,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3135405113103862582, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
+      propertyPath: WalkSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135405113103862582, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
       propertyPath: walkSpeed
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6429868848552581721, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
+      propertyPath: m_Name
+      value: FactoryController
       objectReference: {fileID: 0}
     - target: {fileID: 8222074584235002509, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
       propertyPath: m_UseGravity

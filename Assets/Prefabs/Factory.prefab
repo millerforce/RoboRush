@@ -363,7 +363,7 @@ GameObject:
   - component: {fileID: 7911838427490396403}
   - component: {fileID: 881883940770469449}
   m_Layer: 0
-  m_Name: SceneController
+  m_Name: FactoryController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -393,13 +393,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6429868848552581721}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e38f07b2d466d84cb78793f85e55c1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ef1ea04cc3e5424f8f7f6da6c0468ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _runMinutes: 2
+  _runMinutes: 0
   clock: {fileID: 0}
+  startLocation: {fileID: 0}
   player: {fileID: 0}
-  _levelStart: {fileID: 0}
 --- !u!1 &7012094515664139641
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class SceneController : MonoBehaviour
+public class FactoryController : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
