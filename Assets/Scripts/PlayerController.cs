@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    private float _walkSpeed = 1f;
+    public float WalkSpeed = 1f;
     [SerializeField]
     private float _sprintSpeed = 3f;
 
@@ -20,9 +20,11 @@ public class PlayerController : MonoBehaviour
     {
         _moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
 
-        float speed = Input.GetKey(KeyCode.LeftShift) ? _sprintSpeed : _walkSpeed;
+        float speed = Input.GetKey(KeyCode.LeftShift) ? _sprintSpeed : WalkSpeed;
 
         transform.Translate(_moveDirection * speed * Time.deltaTime);
     }
+
+   
 
 }

@@ -226,7 +226,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9b7f1ff50317732449ebbee4a7cfeee3, type: 3}
       propertyPath: m_Name
-      value: Clock
+      value: clock
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -258,7 +258,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4111951133220556256}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0db3d2d377de0af4b8f949a0da54cec0, type: 3}
+  m_Script: {fileID: 11500000, guid: 11692f1cbe306a2478f3cd3426032acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 0}
+  clockText: {fileID: 0}

@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Clock
   - ClockText
-  - Door
   layers:
   - Default
   - TransparentFX
