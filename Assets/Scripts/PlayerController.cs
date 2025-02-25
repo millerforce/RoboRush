@@ -4,6 +4,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private float _walkSpeed = 1f;
+    [SerializeField]
+    private float _sprintSpeed = 3f;
 
     private Vector3 _moveDirection;
 
@@ -16,9 +18,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _moveDirection.x = Input.GetAxis("Horizontal");
-        _moveDirection.z = Input.GetAxis("Vertical");
+        _moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
 
-        transform.Translate(_moveDirection * _walkSpeed * Time.deltaTime);
+        float speed = Input.GetKey(KeyCode.LeftShift) ? _sprintSpeed : _walkSpeed;
+
+        transform.Translate(_moveDirection * speed * Time.deltaTime);
     }
 }
