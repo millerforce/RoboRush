@@ -15,7 +15,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8650479284900075257
 Transform:
@@ -119,9 +119,25 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a317011115ea06e44a8976858d8408cc, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: dc9c65f772481554cafca8182493d79f, type: 2}
+    - target: {fileID: -7511558181221131132, guid: a317011115ea06e44a8976858d8408cc, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 70ce8086c5ab0354d9c433a3c74e1199, type: 2}
+    - target: {fileID: -7511558181221131132, guid: a317011115ea06e44a8976858d8408cc, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7a222c4939ea17a4a86be61b3af8ab56, type: 2}
     - target: {fileID: 919132149155446097, guid: a317011115ea06e44a8976858d8408cc, type: 3}
       propertyPath: m_Name
       value: factory_building
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a317011115ea06e44a8976858d8408cc, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
