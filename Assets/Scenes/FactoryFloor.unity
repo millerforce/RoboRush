@@ -681,6 +681,7 @@ MonoBehaviour:
   pillarPrefab: {fileID: 7217874885885614848, guid: f401b663faacbc44490f7edecc71b893, type: 3}
   workstations:
   - {fileID: 5086067234203226099, guid: 9e826afd083552c4fa46531a2fe349a0, type: 3}
+  - {fileID: 5683422150775434895, guid: 2840a8529dc85224e839d213c136cb35, type: 3}
   numberOfWorkstations: 5
   obstacles:
   - {fileID: 8969927064715959443, guid: dd7c4b73c7c1dda40998a43efb3a6297, type: 3}
@@ -714,8 +715,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e38f07b2d466d84cb78793f85e55c1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _runMinutes: 2
-  clock: {fileID: 3372760263854946597}
 --- !u!4 &1937580022
 Transform:
   m_ObjectHideFlags: 0
@@ -840,17 +839,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
---- !u!114 &3372760263854946597 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -4142450202766221878, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
-  m_PrefabInstance: {fileID: 3372760263854946596}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0db3d2d377de0af4b8f949a0da54cec0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4579342222828298729
 PrefabInstance:
   m_ObjectHideFlags: 0
