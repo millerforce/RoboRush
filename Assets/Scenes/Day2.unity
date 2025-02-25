@@ -175,6 +175,10 @@ PrefabInstance:
       propertyPath: _startLocation
       value: 
       objectReference: {fileID: 675006607}
+    - target: {fileID: 7331011767573263425, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
+      propertyPath: _startLocation
+      value: 
+      objectReference: {fileID: 675006607}
     - target: {fileID: 7698202539296287833, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
       propertyPath: _levelToLoad
       value: BreakRoom
