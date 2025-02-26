@@ -1410,6 +1410,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2178974998927139309}
     m_Modifications:
+    - target: {fileID: 377976659988407760, guid: 39370e52d402dfa45a69a0001b390b8f, type: 3}
+      propertyPath: _levelToLoad
+      value: BreakRoom
+      objectReference: {fileID: 0}
     - target: {fileID: 3723928521272486434, guid: 39370e52d402dfa45a69a0001b390b8f, type: 3}
       propertyPath: m_Name
       value: Door

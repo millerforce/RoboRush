@@ -69,7 +69,7 @@ public class LevelGenerator : MonoBehaviour
             int gridY = pos.y + gridOffset;
 
             // Try random rotations while ensuring accessibility
-            int[] possibleRotations = { 0, 90, 180, 270 };
+            int[] possibleRotations = { 0, 90, -180, -90 };
             possibleRotations = possibleRotations.OrderBy(a => Random.value).ToArray(); // Shuffle rotation options
 
             foreach (int rotation in possibleRotations)
@@ -78,6 +78,22 @@ public class LevelGenerator : MonoBehaviour
                 {
                     PlaceObject(workstations[i % workstations.Length], pos, rotation);
                     grid[gridX, gridY] = 2; // Mark as workstation
+
+                    switch (rotation)//Mark corresponding space as a robot
+                    {
+                        case 0:
+                            grid[gridX, gridY - 1] = 3;
+                            break;
+                        case 90:
+                            grid[gridX - 1, gridY] = 3;
+                            break;
+                        case -90:
+                            grid[gridX + 1, gridY] = 3;
+                            break;
+                        case -180:
+                            grid[gridX, gridY + 1] = 3;
+                            break;
+                    }
                     break;
                 }
             }
@@ -89,14 +105,26 @@ public class LevelGenerator : MonoBehaviour
         Vector3Int workerPos = GetWorkerPosition(pos, rotation);
         Vector3Int playerAccessPos = GetPlayerAccessPosition(pos, rotation);
 
+        int workstationGridX = pos.x + gridOffset;
+        int workstationGridY = pos.y + gridOffset;
+
         int workerGridX = workerPos.x + gridOffset;
         int workerGridY = workerPos.y + gridOffset;
 
         int accessGridX = playerAccessPos.x + gridOffset;
         int accessGridY = playerAccessPos.y + gridOffset;
 
+        if (grid[workstationGridX, workstationGridY] != 0)
+        {
+            return false;
+        }
+
         // Ensure the worker position is not occupied by a pillar (1) or another workstation (2)
-        if (grid[workerGridX, workerGridY] != 0) return false;
+        if (grid[workerGridX, workerGridY] != 0)
+        {
+            Debug.Log($"Unable to place work station sapce already occupied: {workerGridX}, {workerGridY} ");
+            return false;
+        }     
 
         // Ensure the player access position is open (not occupied)
         if (grid[accessGridX, accessGridY] != 0) return false;
@@ -111,9 +139,10 @@ public class LevelGenerator : MonoBehaviour
         switch (rotation)
         {
             case 0: return workstationPos + new Vector3Int(0, -1, 0);  // Worker below
-            case 90: return workstationPos + new Vector3Int(1, 0, 0);  // Worker right
-            case 180: return workstationPos + new Vector3Int(0, 1, 0); // Worker above
-            case 270: return workstationPos + new Vector3Int(-1, 0, 0); // Worker left
+            case -90: return workstationPos + new Vector3Int(1, 0, 0);  // Worker right
+            case 180:
+            case -180: return workstationPos + new Vector3Int(0, 1, 0); // Worker above
+            case 90: return workstationPos + new Vector3Int(-1, 0, 0); // Worker left
             default: return workstationPos;
         }
     }
@@ -124,8 +153,9 @@ public class LevelGenerator : MonoBehaviour
         {
             case 0: return workstationPos + new Vector3Int(0, 1, 0);  // Player access above
             case 90: return workstationPos + new Vector3Int(-1, 0, 0); // Player access left
-            case 180: return workstationPos + new Vector3Int(0, -1, 0); // Player access below
-            case 270: return workstationPos + new Vector3Int(1, 0, 0); // Player access right
+            case 180:
+            case -180: return workstationPos + new Vector3Int(0, -1, 0); // Player access below
+            case -90: return workstationPos + new Vector3Int(1, 0, 0); // Player access right
             default: return workstationPos;
         }
     }
@@ -162,7 +192,8 @@ public class LevelGenerator : MonoBehaviour
         Debug.Log($"Workstation spawned at: {worldPos} with rotation {yRotation}°");
 
         // Apply rotation
-        Quaternion rotation = Quaternion.Euler(0, yRotation, 0);
+        //Quaternion rotation = Quaternion.Euler(0, yRotation, 0);
+        Quaternion rotation = Quaternion.AngleAxis(yRotation, Vector3.up);
         Instantiate(obj, worldPos, rotation);
     }
 

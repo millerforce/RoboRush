@@ -224,10 +224,10 @@ MonoBehaviour:
   tilemap: {fileID: 392584837}
   pillarPrefab: {fileID: 7217874885885614848, guid: f401b663faacbc44490f7edecc71b893, type: 3}
   workstations:
-  - {fileID: 5683422150775434895, guid: 2840a8529dc85224e839d213c136cb35, type: 3}
-  - {fileID: 5086067234203226099, guid: 9e826afd083552c4fa46531a2fe349a0, type: 3}
-  - {fileID: 1678151197190008858, guid: 1323d495b2561da4ba441c74d611b23e, type: 3}
-  numberOfWorkstations: 5
+  - {fileID: 4809589864237414436, guid: fa02a6899c6ffe44187816dd1f537fad, type: 3}
+  - {fileID: 1478531084069655149, guid: 2377a388579917d4e8aa40a2fd941d98, type: 3}
+  - {fileID: 2425217618630506031, guid: 4793034e33269d64cab54e528085eb17, type: 3}
+  numberOfWorkstations: 8
   obstacles: []
   numberOfObstacles: 0
 --- !u!4 &392584839 stripped
