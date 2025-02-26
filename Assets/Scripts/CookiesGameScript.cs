@@ -1,20 +1,22 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
-public class MinigameController : MonoBehaviour
+public class CookieClickerMinigame : MonoBehaviour
 {
     public GameObject minigameCanvas; // Reference to the Canvas
-    public Button[] buttons; // Array of buttons for the minigame
+    public Button[] cookieButtons; // Array of buttons for the minigame
     public RectTransform canvasRectTransform; // Reference to the Canvas RectTransform
+    public UnityEvent OnMinigameCompleted; // Event to notify when the minigame is completed
 
-    private int buttonsClicked = 0;
+    private int cookiesClicked = 0;
 
     void Start()
     {
         // Initialize buttons and set up their click listeners
-        foreach (Button button in buttons)
+        foreach (Button button in cookieButtons)
         {
-            button.onClick.AddListener(() => OnButtonClick(button));
+            button.onClick.AddListener(() => OnCookieClick(button));
             PlaceButtonRandomly(button);
         }
         minigameCanvas.SetActive(false); // Hide the minigame canvas initially
@@ -30,12 +32,12 @@ public class MinigameController : MonoBehaviour
         }
     }
 
-    void OnButtonClick(Button button)
+    void OnCookieClick(Button button)
     {
-        buttonsClicked++;
+        cookiesClicked++;
         button.gameObject.SetActive(false); // Hide the button when clicked
 
-        if (buttonsClicked >= buttons.Length)
+        if (cookiesClicked >= cookieButtons.Length)
         {
             MinigameCompleted();
         }
@@ -59,13 +61,16 @@ public class MinigameController : MonoBehaviour
     {
         // Logic for when the minigame is completed
         minigameCanvas.SetActive(false);
-        buttonsClicked = 0;
+        cookiesClicked = 0;
 
         // Reset buttons for next time
-        foreach (Button button in buttons)
+        foreach (Button button in cookieButtons)
         {
             button.gameObject.SetActive(true);
             PlaceButtonRandomly(button);
         }
+
+        // Invoke the completion event
+        OnMinigameCompleted?.Invoke();
     }
 }
