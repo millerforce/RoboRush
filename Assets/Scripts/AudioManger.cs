@@ -48,8 +48,8 @@ public class AudioManager : MonoBehaviour {
             return;
         }
         goalTime = AudioSettings.dspTime + 0.5;
-        _musicSources[0].clip = currentMusic.clip;
-        _musicSources[0].PlayScheduled(goalTime);
+        _musicSources[1].clip = currentMusic.clip;
+        _musicSources[1].PlayScheduled(goalTime);
 
         musicDuration = (double)currentMusic.clip.samples / currentMusic.clip.frequency;
         goalTime = goalTime + musicDuration;
