@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("WorkStation"))
+        if (other.CompareTag("Robot"))
         {
             Debug.Log("Interaction collider entered");
 
