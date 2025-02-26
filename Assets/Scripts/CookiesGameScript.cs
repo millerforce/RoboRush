@@ -2,12 +2,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class CookieClickerMinigame : MonoBehaviour
+public class CookieClickerMinigame : MinigameBase
 {
     public GameObject minigameCanvas; // Reference to the Canvas
     public Button[] cookieButtons; // Array of buttons for the minigame
     public RectTransform canvasRectTransform; // Reference to the Canvas RectTransform
-    public UnityEvent OnMinigameCompleted; // Event to notify when the minigame is completed
 
     private int cookiesClicked = 0;
 
@@ -20,16 +19,7 @@ public class CookieClickerMinigame : MonoBehaviour
             PlaceButtonRandomly(button);
         }
         minigameCanvas.SetActive(false); // Hide the minigame canvas initially
-        minigameCanvas.SetActive(true);
-    }
-
-    void Update()
-    {
-        // Show the minigame canvas when the player presses 'E'
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            minigameCanvas.SetActive(true);
-        }
+        minigameCanvas.SetActive(true);//Todo: remove this and fix starting minigames
     }
 
     void OnCookieClick(Button button)
@@ -71,6 +61,6 @@ public class CookieClickerMinigame : MonoBehaviour
         }
 
         // Invoke the completion event
-        OnMinigameCompleted?.Invoke();
+        CompleteMinigame();
     }
 }

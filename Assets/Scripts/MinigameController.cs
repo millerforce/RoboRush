@@ -3,17 +3,24 @@ using UnityEngine.Events;
 
 public class MinigameController : MonoBehaviour
 {
-    public UnityEvent OnMinigameCompleted;
+    public GameObject[] minigamePrefabs; // Array of minigame prefabs
+    public UnityEvent OnMinigameCompleted; // Event to notify when the minigame is completed
 
-    void Start()
+    private GameObject currentMinigame;
+
+    public void TriggerMinigame(int minigameIndex)
     {
-        // Initialize the minigame
+        if (minigameIndex >= 0 && minigameIndex < minigamePrefabs.Length)
+        {
+            currentMinigame = Instantiate(minigamePrefabs[minigameIndex]);
+            MinigameBase minigameBase = currentMinigame.GetComponent<MinigameBase>();
+            minigameBase.OnMinigameCompleted.AddListener(OnMinigameCompletedHandler);
+        }
     }
 
-    public void CompleteMinigame()
+    private void OnMinigameCompletedHandler()
     {
-        // Logic for completing the minigame
-        OnMinigameCompleted.Invoke();
-        Destroy(gameObject); // Destroy the minigame instance
+        OnMinigameCompleted?.Invoke();
+        Destroy(currentMinigame);
     }
 }

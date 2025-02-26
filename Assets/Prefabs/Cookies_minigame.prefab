@@ -1523,10 +1523,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minigameCanvas: {fileID: 8297325526640128051}
-  buttons:
+  cookieButtons:
   - {fileID: 5029366263254031879}
   - {fileID: 7390273030493644370}
   - {fileID: 7756746710589478775}
   - {fileID: 8291870518950988089}
   - {fileID: 6796789468353113061}
   canvasRectTransform: {fileID: 3125138957517818348}
+  OnMinigameCompleted:
+    m_PersistentCalls:
+      m_Calls: []
