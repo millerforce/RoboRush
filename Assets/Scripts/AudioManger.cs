@@ -8,9 +8,10 @@ public class AudioManager : MonoBehaviour {
 
     public Sound[] musicSounds, sfxSounds;
     public AudioSource[] _musicSources;
-    public int musicSourceIndex = 0;
+    public int musicSourceIndex;
     public AudioSource sfxSource;
 
+    public Sound currentMusic;
     public double musicDuration;
     public double goalTime;
 
@@ -40,22 +41,23 @@ public class AudioManager : MonoBehaviour {
 
     public void PlayMusic(string name)
     {
-        Sound s = Array.Find(musicSounds, sound => sound.name == name);
-        if (s == null)
+        currentMusic = Array.Find(musicSounds, sound => sound.name == name);
+        if (currentMusic == null)
         {
             Debug.LogWarning("Music: " + name + " not found!");
             return;
         }
         goalTime = AudioSettings.dspTime + 0.5;
-        _musicSources[0].clip = s.clip;
+        _musicSources[0].clip = currentMusic.clip;
         _musicSources[0].PlayScheduled(goalTime);
-        musicDuration = (double)_musicSources[musicSourceIndex].clip.samples / _musicSources[musicSourceIndex].clip.frequency;
-        goalTime += musicDuration;
+
+        musicDuration = (double)currentMusic.clip.samples / currentMusic.clip.frequency;
+        goalTime = goalTime + musicDuration;
     }
 
     private void Update()
     {
-        if (AudioSettings.dspTime > goalTime - 1)
+        if (AudioSettings.dspTime > goalTime - 2)
         {
             PlayScheduledClip();
         }
@@ -63,23 +65,20 @@ public class AudioManager : MonoBehaviour {
 
     private void PlayScheduledClip()
     {
-        Sound s = Array.Find(musicSounds, sound => sound.name == NextTrack());
-        _musicSources[musicSourceIndex].clip = s.clip;
+        currentMusic = Array.Find(musicSounds, sound => sound.name == NextTrack());
+
+        _musicSources[musicSourceIndex].clip = currentMusic.clip;
         _musicSources[musicSourceIndex].PlayScheduled(goalTime);
-        musicDuration = (double)_musicSources[musicSourceIndex].clip.samples / _musicSources[musicSourceIndex].clip.frequency;
-        goalTime += musicDuration;
+
+        musicDuration = (double)currentMusic.clip.samples / currentMusic.clip.frequency;
+        goalTime = goalTime + musicDuration;
+
         musicSourceIndex = 1 - musicSourceIndex;
     }
 
     public string NextTrack()
     {
-        int index;
-
-        if (musicSounds.Length == 1)
-        {
-            return musicSounds[0].name;
-        }
-        index = random.Next(0, musicSounds.Length-1);
+        int index = random.Next(0, musicSounds.Length - 1);
         return musicSounds[index].name;
     }
 

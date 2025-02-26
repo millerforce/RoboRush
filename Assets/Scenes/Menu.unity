@@ -801,42 +801,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2706652274619746866, guid: de4cde82273dc6b409ca0ddf01af7e9d, type: 3}
-      propertyPath: sfxSounds.Array.size
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 2706652274619746866, guid: de4cde82273dc6b409ca0ddf01af7e9d, type: 3}
-      propertyPath: sfxSounds.Array.data[7].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: a8264b36072ca6e4f82d15f89ab8d472, type: 3}
-    - target: {fileID: 2706652274619746866, guid: de4cde82273dc6b409ca0ddf01af7e9d, type: 3}
-      propertyPath: sfxSounds.Array.data[7].name
-      value: note_c
-      objectReference: {fileID: 0}
-    - target: {fileID: 2706652274619746866, guid: de4cde82273dc6b409ca0ddf01af7e9d, type: 3}
-      propertyPath: sfxSounds.Array.data[8].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 102659b3081a3e34bad55ce74ea4113c, type: 3}
-    - target: {fileID: 2706652274619746866, guid: de4cde82273dc6b409ca0ddf01af7e9d, type: 3}
-      propertyPath: sfxSounds.Array.data[8].name
-      value: note_d
-      objectReference: {fileID: 0}
-    - target: {fileID: 2706652274619746866, guid: de4cde82273dc6b409ca0ddf01af7e9d, type: 3}
-      propertyPath: sfxSounds.Array.data[9].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: dc8d53afb6efa0043bb39ba5873aecf1, type: 3}
-    - target: {fileID: 2706652274619746866, guid: de4cde82273dc6b409ca0ddf01af7e9d, type: 3}
-      propertyPath: sfxSounds.Array.data[9].name
-      value: note_e
-      objectReference: {fileID: 0}
-    - target: {fileID: 2706652274619746866, guid: de4cde82273dc6b409ca0ddf01af7e9d, type: 3}
-      propertyPath: sfxSounds.Array.data[10].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 91cdb912ca616bd42a736273dfbcc92d, type: 3}
-    - target: {fileID: 2706652274619746866, guid: de4cde82273dc6b409ca0ddf01af7e9d, type: 3}
-      propertyPath: sfxSounds.Array.data[10].name
-      value: note_f
-      objectReference: {fileID: 0}
     - target: {fileID: 3661231469220735020, guid: de4cde82273dc6b409ca0ddf01af7e9d, type: 3}
       propertyPath: m_Name
       value: Audio Manager
