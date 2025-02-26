@@ -41,7 +41,7 @@ public class Workstation : MonoBehaviour
 
                 _timeCompleted += Time.deltaTime;
 
-                Debug.Log($"Time passed {_timeCompleted}");
+                //Debug.Log($"Time passed {_timeCompleted}");
 
                 if (_timeCompleted >= _completionTime)
                 {

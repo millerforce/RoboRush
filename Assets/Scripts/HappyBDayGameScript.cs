@@ -39,15 +39,19 @@ public class BirthdayMinigameController : MonoBehaviour {
 
         switch (button.name) {
             case C_NOTE:
+                AudioManager.instance.PlaySFX("note_c");
                 NewNotePressed("C");
                 break;
             case E_NOTE:
+                AudioManager.instance.PlaySFX("note_e");
                 NewNotePressed("E");
                 break;
             case D_NOTE:
+                AudioManager.instance.PlaySFX("note_d");
                 NewNotePressed("D");
                 break;
             case F_NOTE:
+                AudioManager.instance.PlaySFX("note_f");
                 NewNotePressed("F");
                 break;
             default:
