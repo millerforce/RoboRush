@@ -1420,7 +1420,7 @@ GameObject:
   - component: {fileID: 1228005188071007600}
   - component: {fileID: -5054532468067941816}
   m_Layer: 5
-  m_Name: Asteroid_minigame
+  m_Name: Cookies_minigame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
