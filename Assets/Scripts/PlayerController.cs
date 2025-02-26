@@ -1,20 +1,31 @@
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
+public enum PlayerState 
+{ 
+    RUNNING,
+    IDLE,
+    WALKING,
+    INTERACTING,
+    STARTING
+}
+
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     public float WalkSpeed = 2f;
-    [SerializeField]
-    private float _sprintSpeed = 3f;
 
-    
+    [SerializeField]
+    public float SprintSpeed = 3f;
+
+    [SerializeField]
+    private Transform _startLocation;
+
     private Animator animator;
 
     private Vector3 _moveDirection;
 
-    [SerializeField]
-    private Transform _startLocation;
+    private PlayerState state;
 
     public float rotationSpeed = 5f;
 
@@ -23,6 +34,7 @@ public class PlayerController : MonoBehaviour
     {
         _moveDirection = Vector2.zero;
         animator = gameObject.GetComponent<Animator>();
+        state = PlayerState.IDLE;
     }
 
     // Update is called once per frame
@@ -30,46 +42,86 @@ public class PlayerController : MonoBehaviour
     {
         _moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")).normalized;
 
-        float speed;
-        bool isSprinting;
-
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (_moveDirection != Vector3.zero && state != PlayerState.STARTING)
         {
-            speed = _sprintSpeed;
-            isSprinting = true;
-        }
-        else
-        {
-            speed = WalkSpeed;
-            isSprinting = false;
-        }
+            animator.SetBool("isInteracting", false);
 
-        animator.SetBool("isRunning", isSprinting);
-        animator.SetBool("isWalking", !isSprinting);
-
-        transform.Translate(speed * Time.deltaTime * _moveDirection, Space.World);
-
-        if (_moveDirection != Vector3.zero)
-        {
             transform.rotation = Quaternion.LookRotation(_moveDirection);
+
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                state = PlayerState.RUNNING;
+            }
+            else
+            {
+                state = PlayerState.WALKING;
+            }
         }
-        
+        else if (state != PlayerState.INTERACTING && state != PlayerState.STARTING)
+        {
+            state = PlayerState.IDLE;
+        }
+
+        if (state == PlayerState.IDLE)
+        {
+            animator.SetBool("isRunning", false);
+            animator.SetBool("isWalking", false);
+            animator.SetBool("isInteracting", false);
+        }
+        else if (state == PlayerState.WALKING)
+        {
+            animator.SetBool("isRunning", false);
+            animator.SetBool("isWalking", true);
+            animator.SetBool("isInteracting", false);
+
+            transform.Translate(WalkSpeed * Time.deltaTime * _moveDirection, Space.World);
+        }
+        else if (state == PlayerState.RUNNING)
+        {
+            animator.SetBool("isRunning", true);
+            animator.SetBool("isWalking", false);
+            animator.SetBool("isInteracting", false);
+
+            transform.Translate(SprintSpeed * Time.deltaTime * _moveDirection, Space.World);
+        }
+        else if (state == PlayerState.INTERACTING)
+        {
+            animator.SetBool("isRunning", false);
+            animator.SetBool("isWalking", false);
+
+            animator.SetBool("isInteracting", true);
+        }
     }
 
     public bool StartAnimation()
     {
         if (!transform.position.Equals(_startLocation.position))
         {
-
+            state = PlayerState.STARTING;
+            animator.SetBool("isWalking", true);
             transform.position = Vector3.MoveTowards(transform.position, _startLocation.position, WalkSpeed * Time.deltaTime);
 
             return true;
         }
         else
         {
+            state = PlayerState.IDLE;
+            animator.SetBool("isWalking", false);
             return false;
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("WorkStation"))
+        {
+            Debug.Log("Interaction collider entered");
 
+            if (Input.GetKey(KeyCode.E))
+            {
+                state = PlayerState.INTERACTING;
+            }
+        }
+        
+    }
 }

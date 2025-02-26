@@ -150,7 +150,7 @@ PrefabInstance:
     - target: {fileID: 881883940770469449, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1033346906}
     - target: {fileID: 881883940770469449, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
       propertyPath: _levelStart
       value: 
@@ -235,6 +235,10 @@ PrefabInstance:
       propertyPath: _levelToLoad
       value: BreakRoom
       objectReference: {fileID: 0}
+    - target: {fileID: 8010692596169397217, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
+      propertyPath: _startLocation
+      value: 
+      objectReference: {fileID: 394793528}
     - target: {fileID: 8222074584235002509, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
       propertyPath: m_UseGravity
       value: 0
@@ -259,6 +263,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
+--- !u!114 &1033346906 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8010692596169397217, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
+  m_PrefabInstance: {fileID: 1033346905}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb8210306d5995345839892d11348c26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1062841671 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7177919238369167267, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
