@@ -195,6 +195,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Factory
       objectReference: {fileID: 0}
+    - target: {fileID: 9160303814913451141, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
+      propertyPath: m_projectionMatrixMode
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5689084477458867846, guid: be5318279ffee6a46806c55de60a4df2, type: 3}

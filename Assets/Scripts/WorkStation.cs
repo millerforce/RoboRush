@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WorkStation : MonoBehaviour
+public class Workstation : MonoBehaviour
 {
    
 }
