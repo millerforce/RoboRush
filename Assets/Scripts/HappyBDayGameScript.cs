@@ -38,10 +38,6 @@ public class BirthdayMinigameController : MonoBehaviour, IMinigameBase
         //minigameCanvas.SetActive(true);
     }
 
-    void OnEnable() {
-        
-    }
-
     void OnDisable() {
         lastHintTime = LAST_HINT_DEFAULT;
     }
@@ -70,6 +66,9 @@ public class BirthdayMinigameController : MonoBehaviour, IMinigameBase
         ResetHint(); // Don't play a hint if they are in the middle of pressing buttons
 
         switch (button.name) {
+            case "ExitButton":
+                minigameCanvas.SetActive(false);
+                break;
             case C_NOTE:
                 AudioManager.instance.PlaySFX("note_c");
                 NewNotePressed("C");

@@ -2,16 +2,22 @@ using UnityEngine;
 using System;
 using Unity.VisualScripting;
 using System.Collections;
+using System.Diagnostics.Contracts;
 
 public class AudioManager : MonoBehaviour {
     public static AudioManager instance;
 
-    public Sound[] musicSounds, sfxSounds;
+    public Sound[] sfxSounds, ambientSounds;
     public AudioSource[] _musicSources;
     public int musicSourceIndex = 0;
     public AudioSource sfxSource;
+    public AudioSource ambientSource;
+    public bool playAmbient = false;
+    public bool playMusic = false;
+    public Song[] songs;
 
     public Sound currentMusic;
+    public Song currentSong;
     public double musicDuration;
     public double goalTime;
 
@@ -36,15 +42,32 @@ public class AudioManager : MonoBehaviour {
 
     private void Start()
     {
-        PlayMusic(musicSounds[0].name);
+        if (playMusic)
+        {
+            int randomSong = random.Next(1, songs.Length);
+            Debug.Log("Song " + songs[randomSong].name + " playing");
+            PlayMusic(songs[randomSong].name);
+        }
+        if (playAmbient)
+        {
+            PlayAmbient(ambientSounds[0].name);
+        }
     }
 
     public void PlayMusic(string name)
     {
-        this.currentMusic = Array.Find(musicSounds, sound => sound.name == name);
+        this.currentSong = Array.Find(songs, song => song.name == name);
+
+        if (this.currentSong == null)
+        {
+            Debug.LogWarning("Song: " + name + " not found!");
+            return;
+        }
+
+        this.currentMusic = currentSong.sounds[0];
         if (this.currentMusic == null)
         {
-            Debug.LogWarning("Music: " + name + " not found!");
+            Debug.LogWarning("Music: " + currentSong.sounds[0].name + " not found!");
             return;
         }
         goalTime = AudioSettings.dspTime + 0.5;
@@ -57,8 +80,16 @@ public class AudioManager : MonoBehaviour {
 
     private void Update()
     {
-        if (AudioSettings.dspTime > goalTime - 2)
+        if (playMusic && (AudioSettings.dspTime > goalTime - 2))
         {
+            int timeToChange = random.Next(0, 30);
+            if (timeToChange == 2)
+            {
+                int randomSong = random.Next(1, songs.Length);
+                Debug.Log("Song " + songs[randomSong].name + " playing");
+                PlayMusic(songs[randomSong].name);
+                return;
+            }
             PlayScheduledClip();
         }
     }
@@ -67,7 +98,7 @@ public class AudioManager : MonoBehaviour {
     {
         string nextTrackName = NextTrack();
         Debug.Log("PlayScheduledClip() searching for: " + nextTrackName);
-        this.currentMusic = Array.Find(musicSounds, sound => sound.name == nextTrackName);
+        this.currentMusic = Array.Find(currentSong.sounds, sound => sound.name == nextTrackName);
 
         if (this.currentMusic == null)
         {
@@ -87,28 +118,41 @@ public class AudioManager : MonoBehaviour {
 
     public string NextTrack()
     {
-        if (musicSounds == null || musicSounds.Length == 0)
+        if (currentSong == null || currentSong.sounds.Length == 0)
         {
             Debug.LogError("No music sounds defined!");
             return null;
         }
 
-        int index = random.Next(0, musicSounds.Length - 1);
+        int index = random.Next(1, currentSong.sounds.Length);
 
-        if (musicSounds[index] == null || musicSounds[index].name == null)
+        if (currentSong.sounds[index] == null || currentSong.sounds[index].name == null)
         {
             Debug.LogError($"Invalid music sound at index {index}");
-            return musicSounds[0].name;
+            return currentSong.sounds[0].name;
         }
 
-        Debug.Log("NextTrack() returning: " + musicSounds[index].name);
-        return musicSounds[index].name;
+        Debug.Log("NextTrack() returning: " + currentSong.sounds[index].name);
+        return currentSong.sounds[index].name;
     }
 
-    public void SetCurrentMusic(string name)
+    //public void SetCurrentMusic(string name)
+    //{
+    //    Sound s = Array.Find(musicSounds, sound => sound.name == NextTrack());
+    //    _musicSources[musicSourceIndex].clip = s.clip;
+    //}
+
+    public void PlayAmbient(string name)
     {
-        Sound s = Array.Find(musicSounds, sound => sound.name == NextTrack());
-        _musicSources[musicSourceIndex].clip = s.clip;
+        Sound s = Array.Find(ambientSounds, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.LogWarning("SFX: " + name + " not found!");
+            return;
+        }
+        ambientSource.clip = s.clip;
+        ambientSource.loop = true;
+        ambientSource.Play();
     }
 
     public void PlaySFX(string name)
@@ -122,43 +166,13 @@ public class AudioManager : MonoBehaviour {
         sfxSource.PlayOneShot(s.clip);
     }
 
+    public void StopMusic() {
+        _musicSources[musicSourceIndex].Stop();
+    }
 
-    //private void Awake() {
-    //    if (instance == null) {
-    //        instance = this;
-    //        DontDestroyOnLoad(gameObject); // Persist between scenes
-    //    }
-    //    else {
-    //        Destroy(gameObject);
-    //        return;
-    //    }
-
-    //    LoadVolumeSettings();
-    //}
-
-    //public void PlayMusic(AudioClip clip) {
-    //    if (musicSource.clip != clip) {
-    //        musicSource.clip = clip;
-    //        musicSource.Play();
-    //    }
-    //}
-
-    //public void StopMusic() {
-    //    musicSource.Stop();
-    //}
-
-    //public void PlaySFX(AudioClip clip) {
-    //    foreach (var source in sfxSources) {
-    //        if (!source.isPlaying) // Play on the first available source
-    //        {
-    //            source.clip = clip;
-    //            source.Play();
-    //            return;
-    //        }
-    //    }
-    //}
 
     public void SetMusicVolume(float volume) {
+        ambientSource.volume = volume; // Setting the ambient source volume here for now
         foreach (var source in _musicSources)
         {
             source.volume = volume;

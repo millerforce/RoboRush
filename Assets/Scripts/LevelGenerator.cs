@@ -8,10 +8,12 @@ public class LevelGenerator : MonoBehaviour
     public Tilemap tilemap;
     public GameObject pillarPrefab;
     public GameObject[] workstations;
-    int cap = 10;
-    public int numberOfWorkstations;
+    int workstationCap = 10;
+    int numberOfWorkstations;
     public GameObject[] obstacles;
+    int obstacleCap = 6;
     public int numberOfObstacles;
+
 
     int[,] grid = new int[9, 9]; // 9x9 grid
     int gridOffset = 4; // Align grid with world positions
@@ -30,8 +32,23 @@ public class LevelGenerator : MonoBehaviour
 
     void Start()
     {
+        string currentDay = PlayerPrefs.GetString("Day", "0");
+        Debug.Log("Current Day:" + currentDay);
+        int dayNumber = int.Parse(currentDay);
+        numberOfWorkstations = ChooseNumberOfWorkstations(dayNumber);
         InitializeGrid();
         GenerateWorkstations();
+        GenerateObstacles();
+    }
+
+    int ChooseNumberOfWorkstations(int dayNumber)
+    {
+        return Mathf.Min(workstationCap, Random.Range(dayNumber, dayNumber + 2));
+    }
+
+    int ChooseNumberOfObstacles(int dayNumber)
+    {
+        return Mathf.Min(Random.Range(0, obstacleCap));
     }
 
     public void InitializeGrid()
@@ -96,7 +113,7 @@ public class LevelGenerator : MonoBehaviour
                     }
                 }
 
-                if (placedWorkstations >= cap) break; // Ensure max cap workstations
+                if (placedWorkstations >= workstationCap) break; // Ensure max cap workstations
             }
 
             validLayout = AreAllWorkstationsReachable();
@@ -164,11 +181,47 @@ public class LevelGenerator : MonoBehaviour
             case -90: return workstationPos + new Vector3Int(1, 0, 0);
             case -180:
             case 180: return workstationPos + new Vector3Int(0, 1, 0);
-
             case 90: return workstationPos + new Vector3Int(-1, 0, 0);
             default: return workstationPos;
         }
     }
+
+    public void GenerateObstacles()
+    {
+        List<Vector3Int> validPositions = allowedWorkstationAndObstaclePositions.ToList();
+        validPositions = validPositions.OrderBy(a => Random.value).ToList(); // Shuffle positions
+
+        int placedObstacles = 0;
+
+        Debug.Log($"Spawning up to {numberOfObstacles} obstacles");
+
+        foreach (Vector3Int pos in validPositions)
+        {
+            if (placedObstacles >= numberOfObstacles) break;
+
+            int gridX = pos.x + gridOffset;
+            int gridY = pos.y + gridOffset;
+
+            // Ensure obstacle does not spawn in workstation, worker, or player access position
+            if (grid[gridX, gridY] != 0) continue;
+
+            // Place the obstacle
+            PlaceObject(obstacles[Random.Range(0, obstacles.Length)], pos, 0);
+            grid[gridX, gridY] = 4; // Mark as obstacle
+
+            placedObstacles++;
+
+            // Ensure all workstations remain reachable
+            if (!AreAllWorkstationsReachable())
+            {
+                // Remove the obstacle if it blocks accessibility
+                grid[gridX, gridY] = 0;
+                placedObstacles--;
+            }
+        }
+    }
+
+
 
     void PlaceObject(GameObject obj, Vector3Int gridPos, int yRotation)
     {
