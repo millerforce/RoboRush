@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -76,21 +77,7 @@ public class Workstation : MonoBehaviour
         _canBreak = false;
         _timeSinceBreakdown = 0f;
 
-        MonoBehaviour[] scripts = GetComponentsInChildren<MonoBehaviour>();
-        foreach (MonoBehaviour script in scripts)
-        {
-            if (script is IMinigameBase)
-            {
-                minigames.Add(script as IMinigameBase);
-            }
-        }
-
-        int rand;
-        if (minigames.Count > 0)
-        {
-            rand = Random.Range(0, minigames.Count);
-            activeMinigame = minigames[rand];
-        }
+        StartCoroutine(WaitToFindScripts());
         
     }
 
@@ -239,6 +226,27 @@ public class Workstation : MonoBehaviour
                     stationEffect.Stop();
                 }
             }
+        }
+    }
+
+    IEnumerator WaitToFindScripts()
+    {
+        yield return new WaitForSeconds(3);
+
+        MonoBehaviour[] scripts = GetComponentsInChildren<MonoBehaviour>(true);
+        foreach (MonoBehaviour script in scripts)
+        {
+            if (script is IMinigameBase)
+            {
+                minigames.Add(script as IMinigameBase);
+            }
+        }
+
+        int rand;
+        if (minigames.Count > 0)
+        {
+            rand = Random.Range(0, minigames.Count);
+            activeMinigame = minigames[rand];
         }
     }
 }
