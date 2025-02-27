@@ -22,8 +22,7 @@ public class Workstation : MonoBehaviour
     [SerializeField]
     private float takeoffSpeed = 5f;
 
-    [SerializeReference]
-    MinigameBase minigame;
+    private IMinigameBase minigame;
 
     private void Start()
     {
@@ -33,6 +32,16 @@ public class Workstation : MonoBehaviour
         takeoff.Stop();
         state = StationState.WORKING;
         _timeCompleted = 0f;
+
+        MonoBehaviour[] scripts = GetComponentsInChildren<MonoBehaviour>();
+        foreach (MonoBehaviour script in scripts)
+        {
+            if (script is IMinigameBase)
+            {
+                minigame = script as IMinigameBase;
+                break;
+            }
+        }
     }
 
     private void Update()
@@ -71,6 +80,17 @@ public class Workstation : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (Input.GetKey(KeyCode.E))
+            {
+                minigame.StartGame();
+            }
         }
     }
 }

@@ -33,12 +33,15 @@ public class FactoryController : MonoBehaviour
 
     private GameObject[] foundStations;
     private List<Workstation> stations = new();
+    private bool inEndlessMode;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         int day = PlayerPrefs.GetInt("Day");
         Debug.Log($"Entering day: {day}");
+
+        inEndlessMode = PlayerPrefs.GetInt("Endless") == 1 ? true : false;
 
         _timeRemaining = _runMinutes * 60;
         state = FactoryState.STARTING;

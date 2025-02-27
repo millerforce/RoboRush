@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class CookieClickerMinigame : MinigameBase
+public class CookieClickerMinigame : MonoBehaviour, IMinigameBase
 {
     public GameObject minigameCanvas; // Reference to the Canvas
     public Button[] cookieButtons; // Array of buttons for the minigame
@@ -65,8 +65,13 @@ public class CookieClickerMinigame : MinigameBase
         gamecompleted = true;
     }
 
-    public void startGame()
+    public void StartGame()
     {
         minigameCanvas.SetActive(true);
+    }
+
+    public bool GameFinished()
+    {
+        return gamecompleted;
     }
 }
