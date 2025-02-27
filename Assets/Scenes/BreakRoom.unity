@@ -347,6 +347,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1338526162}
     m_Modifications:
     - target: {fileID: 377976659988407760, guid: 39370e52d402dfa45a69a0001b390b8f, type: 3}
+      propertyPath: _dayToStart
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 377976659988407760, guid: 39370e52d402dfa45a69a0001b390b8f, type: 3}
       propertyPath: _levelToLoad
       value: Day3
       objectReference: {fileID: 0}
@@ -644,6 +648,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2042739680}
     m_Modifications:
+    - target: {fileID: 377976659988407760, guid: 39370e52d402dfa45a69a0001b390b8f, type: 3}
+      propertyPath: _dayToStart
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 377976659988407760, guid: 39370e52d402dfa45a69a0001b390b8f, type: 3}
       propertyPath: _levelToLoad
       value: Day2

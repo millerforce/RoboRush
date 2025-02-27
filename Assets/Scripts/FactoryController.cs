@@ -9,7 +9,8 @@ public enum FactoryState
 {
     STARTING,
     RUNNING,
-    STOPPING
+    FAILED,
+    NEXTDAY
 }
 
 public class FactoryController : MonoBehaviour
@@ -36,6 +37,9 @@ public class FactoryController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        int day = PlayerPrefs.GetInt("Day");
+        Debug.Log($"Entering day: {day}");
+
         _timeRemaining = _runMinutes * 60;
         state = FactoryState.STARTING;
 
@@ -63,13 +67,22 @@ public class FactoryController : MonoBehaviour
 
                 if (AllStationsDeleted())
                 {
-                    state = FactoryState.STOPPING;
+                    state = FactoryState.NEXTDAY;
                 }
                 break;
 
-            case FactoryState.STOPPING:
+            case FactoryState.FAILED:
 
                 SceneManager.LoadScene("BreakRoom");
+
+                break;
+
+            case FactoryState.NEXTDAY:
+                int day = PlayerPrefs.GetInt("Day", 1);
+                PlayerPrefs.SetInt("Day", ++day);
+                PlayerPrefs.Save();
+
+                SceneManager.LoadScene("Endless");
 
                 break;
         }   

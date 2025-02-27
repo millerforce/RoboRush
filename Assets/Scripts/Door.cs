@@ -6,6 +6,9 @@ public class Door : MonoBehaviour
     [SerializeField]
     private string _levelToLoad = "BreakRoom";
 
+    [SerializeField]
+    private int _dayToStart = 1;
+
     private void OnTriggerStay(Collider other)
     {
         print("door trigger entered");
@@ -13,6 +16,9 @@ public class Door : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.E)) 
             {
+                PlayerPrefs.SetInt("Day", _dayToStart);
+                PlayerPrefs.Save();
+
                 SceneManager.LoadScene(_levelToLoad);
             }
         }

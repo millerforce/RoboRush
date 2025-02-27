@@ -27,6 +27,8 @@ public class Workstation : MonoBehaviour
 
     private void Start()
     {
+        int day = PlayerPrefs.GetInt("Day");
+
         takeoff = GetComponentInChildren<ParticleSystem>();
         takeoff.Stop();
         state = StationState.WORKING;
