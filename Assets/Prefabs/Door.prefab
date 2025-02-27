@@ -180,10 +180,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -305091885687274788, guid: 8419ce164acdd204ea8981a10a8e51cf, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7fff466dde8a2e8448b988ac15e2d53a, type: 2}
+    - target: {fileID: -305091885687274788, guid: 8419ce164acdd204ea8981a10a8e51cf, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 71ba5425e1cc96a41b1d99a3c6b71824, type: 2}
+    - target: {fileID: -305091885687274788, guid: 8419ce164acdd204ea8981a10a8e51cf, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1b74df2222fcd33408cc2a931fe0a092, type: 2}
     - target: {fileID: 919132149155446097, guid: 8419ce164acdd204ea8981a10a8e51cf, type: 3}
       propertyPath: m_Name
       value: door_frame
       objectReference: {fileID: 0}
+    - target: {fileID: 8439796992618771461, guid: 8419ce164acdd204ea8981a10a8e51cf, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 71ba5425e1cc96a41b1d99a3c6b71824, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
