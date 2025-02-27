@@ -130,7 +130,7 @@ public class BirthdayMinigameController : MonoBehaviour, IMinigameBase
 
             gamecompleted = true;
 
-            //minigameCanvas.SetActive(false);
+            minigameCanvas.SetActive(false);
         }
     }
     public void StartGame()
