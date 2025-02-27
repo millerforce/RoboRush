@@ -161,6 +161,7 @@ public class LevelGenerator : MonoBehaviour
         {
             case 0: return workstationPos + new Vector3Int(0, -1, 0);
             case -90: return workstationPos + new Vector3Int(1, 0, 0);
+            case -180:
             case 180: return workstationPos + new Vector3Int(0, 1, 0);
             case 90: return workstationPos + new Vector3Int(-1, 0, 0);
             default: return workstationPos;

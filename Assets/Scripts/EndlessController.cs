@@ -10,8 +10,8 @@ public class EndlessController : MonoBehaviour
     {
         int day = PlayerPrefs.GetInt("Day");
 
-        generator.InitializeGrid();
-        generator.GenerateWorkstations();
+        //generator.InitializeGrid();
+        //generator.GenerateWorkstations();
 
     }
 
