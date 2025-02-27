@@ -18,7 +18,7 @@ public class FactoryController : MonoBehaviour
     [SerializeField]
     private float _runMinutes;
 
-    private const float _defaultRuntime = 5f;
+    private const float _defaultRuntime = 2f;
 
     [SerializeField]
     Clock clock;

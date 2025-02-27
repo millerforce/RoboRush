@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
                 state = PlayerState.WALKING;
             }
         }
-        else if (state != PlayerState.INTERACTING && state != PlayerState.STARTING)
+        else if (state != PlayerState.INTERACTING && state != PlayerState.STARTING && state != PlayerState.IDLE)
         {
             state = PlayerState.IDLE;
         }

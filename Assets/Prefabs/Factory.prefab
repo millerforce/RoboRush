@@ -446,7 +446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _runMinutes: 0
-  clock: {fileID: 8556234027340871127}
+  clock: {fileID: 6019166154905061554}
   startLocation: {fileID: 5625702327642645110}
   player: {fileID: 8010692596169397217}
 --- !u!1 &7012094515664139641
@@ -1090,15 +1090,15 @@ PrefabInstance:
     - target: {fileID: 4454048938311224061, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 6318485345019679461, guid: a6eda7f5cfa20ee4680647945b060805, type: 2}
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 6026873462389419966, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: a6eda7f5cfa20ee4680647945b060805, type: 2}
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 6026873462389419966, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 6318485345019679461, guid: a6eda7f5cfa20ee4680647945b060805, type: 2}
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 6026873462389419966, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
@@ -1113,9 +1113,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3628570244732163930, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
   m_PrefabInstance: {fileID: 3476452353796532253}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8556234027340871127 stripped
+--- !u!114 &6019166154905061554 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -4142450202766221878, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7185081185796055215, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
   m_PrefabInstance: {fileID: 3476452353796532253}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
