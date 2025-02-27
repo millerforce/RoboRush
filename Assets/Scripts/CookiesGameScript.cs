@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using JetBrains.Annotations;
 
 public class CookieClickerMinigame : MonoBehaviour, IMinigameBase
 {
@@ -8,12 +9,20 @@ public class CookieClickerMinigame : MonoBehaviour, IMinigameBase
     public Button[] cookieButtons; // Array of buttons for the minigame
     public RectTransform canvasRectTransform; // Reference to the Canvas RectTransform
 
+    public Texture2D[] cookieTextures; // Array of cookie textures (0: full, 1: half-eaten, 2: mostly-eaten)
+    public Texture2D[] cookieTextures2; // Array of cookie textures (0: full, 1: half-eaten, 2: mostly-eaten)
+    public Texture2D[] cookieTextures3; // Array of cookie textures (0: full, 1: half-eaten, 2: mostly-eaten)
+    public Texture2D[] cookieTextures4; // Array of cookie textures (0: full, 1: half-eaten, 2: mostly-eaten)
+
     public bool gamecompleted = false;
 
     private int cookiesClicked = 0;
+    private int[] buttonClickCounts; // Array to keep track of clicks for each button
 
     void Start()
     {
+        buttonClickCounts = new int[cookieButtons.Length];
+
         // Initialize buttons and set up their click listeners
         foreach (Button button in cookieButtons)
         {
@@ -23,14 +32,38 @@ public class CookieClickerMinigame : MonoBehaviour, IMinigameBase
         minigameCanvas.SetActive(false); // Hide the minigame canvas initially
     }
 
+    Texture2D[] selectRandomCookie()
+    {
+        int cookieType = Random.Range(0, 3);
+        switch (cookieType)
+        {
+            case 0:
+                return 
+        }
+    }
+
     void OnCookieClick(Button button)
     {
-        cookiesClicked++;
-        button.gameObject.SetActive(false); // Hide the button when clicked
+        int index = System.Array.IndexOf(cookieButtons, button);
+        buttonClickCounts[index]++;
 
-        if (cookiesClicked >= cookieButtons.Length)
+        RawImage buttonImage = button.GetComponentInChildren<RawImage>();
+
+        if (buttonClickCounts[index] < 3)
         {
-            MinigameCompleted();
+            // Change the button texture to a more eaten cookie
+            buttonImage.texture = cookieTextures[buttonClickCounts[index]];
+        }
+        else
+        {
+            // Hide the button after 3 clicks
+            button.gameObject.SetActive(false);
+            cookiesClicked++;
+
+            if (cookiesClicked >= cookieButtons.Length)
+            {
+                MinigameCompleted();
+            }
         }
     }
 
@@ -41,7 +74,7 @@ public class CookieClickerMinigame : MonoBehaviour, IMinigameBase
         button.GetComponent<RectTransform>().anchoredPosition = new Vector2(x - canvasRectTransform.rect.width / 2, y - canvasRectTransform.rect.height / 2);
 
         // Place the image at the same position as the button
-        Image buttonImage = button.GetComponentInChildren<Image>();
+        RawImage buttonImage = button.GetComponentInChildren<RawImage>();
         if (buttonImage != null)
         {
             buttonImage.rectTransform.anchoredPosition = new Vector2(x - canvasRectTransform.rect.width / 2, y - canvasRectTransform.rect.height / 2);
@@ -55,10 +88,12 @@ public class CookieClickerMinigame : MonoBehaviour, IMinigameBase
         cookiesClicked = 0;
 
         // Reset buttons for next time
-        foreach (Button button in cookieButtons)
+        for (int i = 0; i < cookieButtons.Length; i++)
         {
-            button.gameObject.SetActive(true);
-            PlaceButtonRandomly(button);
+            cookieButtons[i].gameObject.SetActive(true);
+            buttonClickCounts[i] = 0;
+            cookieButtons[i].GetComponentInChildren<RawImage>().texture = cookieTextures[0]; // Reset to full cookie texture
+            PlaceButtonRandomly(cookieButtons[i]);
         }
 
         // Invoke the completion event
