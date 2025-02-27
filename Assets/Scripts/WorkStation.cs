@@ -211,7 +211,7 @@ public class Workstation : MonoBehaviour
 
     void SetDifficultyByDay(int day)
     {
-        float dayLength = 5 - (day * 0.05f);
+        float dayLength = 2 - (day * 0.05f);
 
         _completionTime = dayLength * 0.5f * 60;
 
