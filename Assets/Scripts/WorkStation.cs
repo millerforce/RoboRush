@@ -25,15 +25,12 @@ public class Workstation : MonoBehaviour
     [SerializeField]
     MinigameController minigame;
 
-    private bool offScreen;
-
     private void Start()
     {
         takeoff = GetComponentInChildren<ParticleSystem>();
         takeoff.Stop();
         state = StationState.WORKING;
         _timeCompleted = 0f;
-        offScreen = false;
     }
 
     private void Update()
@@ -52,11 +49,7 @@ public class Workstation : MonoBehaviour
                 break;
 
             case StationState.FINISHED:
-
-                if (!offScreen)
-                {
-                    FinishTask();
-                }
+                FinishTask();
                
                 break;
         }

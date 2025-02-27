@@ -20,9 +20,6 @@ public class FactoryController : MonoBehaviour
     [SerializeField]
     Clock clock;
 
-    [SerializeField]
-    LevelGenerator generator;
-
     private float _timeRemaining;
 
     [SerializeField]
@@ -42,12 +39,7 @@ public class FactoryController : MonoBehaviour
         _timeRemaining = _runMinutes * 60;
         state = FactoryState.STARTING;
 
-        generator.InitializeGrid();
-        generator.GenerateWorkstations();
-
         Invoke(nameof(FindStations), 0.5f);
-
-        Debug.Log($"{stations.Count} workstations");
     }
 
     // Update is called once per frame
