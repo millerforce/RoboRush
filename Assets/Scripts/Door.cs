@@ -15,7 +15,7 @@ public class Door : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.E)) 
             {
-               
+                PlayerPrefs.SetInt("Endless", _dayToStart.Equals("Endless") ? 1 : 0);
 
                 InteractionHintManager.instance.HideHint();
                 PlayerPrefs.SetInt("Day", _dayToStart);

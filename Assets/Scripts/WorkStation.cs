@@ -25,9 +25,9 @@ public class Workstation : MonoBehaviour
     private float _timeCompleted;//The amount of time the workstation has been working on its task
 
     [SerializeField]
-    private float _breakdownChance;//The probability each frame outside the cooldown that the work station will breakdown
+    private float _breakdownChance = 0.1f;//The probability each frame outside the cooldown that the work station will breakdown
 
-    private float _timeSinceBreakdown;//Tracking how long it has been since the last breakdown
+    private float _timeSinceBreakdown = 0;//Tracking how long it has been since the last breakdown
 
     private bool _canBreak;
 
@@ -58,6 +58,7 @@ public class Workstation : MonoBehaviour
     private void Start()
     {
         int day = PlayerPrefs.GetInt("Day");
+        SetDifficultyByDay(day);
 
         TryAnimation(stationAnimator, brokenAnimation, false);
         TryAnimation(robotAnimator, brokenAnimation, false);
@@ -197,7 +198,11 @@ public class Workstation : MonoBehaviour
 
     void SetDifficultyByDay(int day)
     {
+        float dayLength = 5 - (day * 0.05f);
 
+        _completionTime = dayLength * 0.5f;
+
+        _breakdownChance += day * 0.05f;
     }
 
     void TrySetParticles(bool flag)
