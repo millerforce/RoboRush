@@ -23,7 +23,7 @@ public class Workstation : MonoBehaviour
     private float _completionTime;//The amount of time the station needs to be in the working state to finish its task
 
     //[SerializeField]
-    private float _cooldownTime = 10f;//The time interval the station can break down on
+    private float _cooldownTime = 20f;//The time interval the station can break down on
 
     private float _timeCompleted;//The amount of time the workstation has been working on its task
 
@@ -145,7 +145,7 @@ public class Workstation : MonoBehaviour
                 break;
 
             case StationState.PLAYINGMINIGAME:
-                alert.SetActive(false);
+                //alert.SetActive(false);
 
                 if (activeMinigame.GameFinished())
                 {
@@ -186,15 +186,19 @@ public class Workstation : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && state == StationState.BROKEN)
+        if (!other.isTrigger && GetComponent<Collider>().isTrigger)
         {
-            Debug.Log("Player in active minigame trigger");
+            if (other.CompareTag("Player") && state == StationState.BROKEN || state == StationState.PLAYINGMINIGAME)
+            {
+                Debug.Log("Player in active minigame trigger");
             if (Input.GetKey(KeyCode.E))
             {
                 activeMinigame.StartGame();
                 state = StationState.PLAYINGMINIGAME;
             }
         }
+        }
+        
     }
 
     private void TryAnimation(Animator animator, string animation, bool flag)
@@ -213,8 +217,8 @@ public class Workstation : MonoBehaviour
 
         _breakdownChance += day * 0.05f;
 
-        float baseCooldown = day * 0.05f;
-        _cooldownTime -= Random.Range(baseCooldown - 3, baseCooldown + 3);
+        _cooldownTime -= (day * 0.05f);
+        _cooldownTime = Random.Range(_cooldownTime - 3, _cooldownTime + 3);
     }
 
     void TrySetParticles(bool flag)

@@ -189,6 +189,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6356443209248382886}
+  - component: {fileID: 6027654958441646284}
   - component: {fileID: 7513526233758648375}
   - component: {fileID: 838412580948332414}
   - component: {fileID: 5416707098285108119}
@@ -221,6 +222,27 @@ Transform:
   - {fileID: 1632017580357419107}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6027654958441646284
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478531084069655149}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.25, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: -1}
 --- !u!65 &7513526233758648375
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -278,10 +300,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   takeoff: {fileID: 6485439690499599894}
   alert: {fileID: 4230087093086200073}
-  _completionTime: 60
-  _cooldownTime: 10
-  _breakdownChance: 0.25
-  _attemptBreakDownInterval: 1
   stationAnimator: {fileID: 838412580948332414}
   robotAnimator: {fileID: 6328555730106656178}
   stationEffect: {fileID: 3777124708049648516}

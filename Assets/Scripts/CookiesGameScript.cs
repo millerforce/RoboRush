@@ -141,6 +141,8 @@ public class CookieClickerMinigame : MonoBehaviour, IMinigameBase
         minigameCanvas.SetActive(false);
         cookiesClicked = 0;
         gamecompleted = true;
+        int day = PlayerPrefs.GetInt("Day", 1);
+        GenerateCookies(determineAmountOfCookies(day));
     }
 
     public void StartGame()
