@@ -1,25 +1,21 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Sounds/note_c.wav.meta
-guid: dcd61d917eb20d84e92ea8c45b559893
-========
-guid: 4b8cd447b587b7848b72727c9199a91a
->>>>>>>> b273747 (add procedural music looping):Assets/Sounds/Music/beepsAndBoops_ABCD.wav.meta
+guid: 91cdb912ca616bd42a736273dfbcc92d
 AudioImporter:
   externalObjects: {}
   serializedVersion: 8
   defaultSettings:
     serializedVersion: 2
-    loadType: 1
+    loadType: 0
     sampleRateSetting: 0
     sampleRateOverride: 44100
     compressionFormat: 1
     quality: 1
     conversionMode: 0
-    preloadAudioData: 1
+    preloadAudioData: 0
   platformSettingOverrides: {}
   forceToMono: 0
   normalize: 1
-  loadInBackground: 1
+  loadInBackground: 0
   ambisonic: 0
   3D: 1
   userData: 
