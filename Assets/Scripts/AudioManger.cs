@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour {
     public AudioSource[] _musicSources;
     public int musicSourceIndex = 0;
     public AudioSource sfxSource;
+    public Song[] songs;
 
     public Sound currentMusic;
     public double musicDuration;
@@ -122,41 +123,10 @@ public class AudioManager : MonoBehaviour {
         sfxSource.PlayOneShot(s.clip);
     }
 
+    public void StopMusic() {
+        _musicSources[musicSourceIndex].Stop();
+    }
 
-    //private void Awake() {
-    //    if (instance == null) {
-    //        instance = this;
-    //        DontDestroyOnLoad(gameObject); // Persist between scenes
-    //    }
-    //    else {
-    //        Destroy(gameObject);
-    //        return;
-    //    }
-
-    //    LoadVolumeSettings();
-    //}
-
-    //public void PlayMusic(AudioClip clip) {
-    //    if (musicSource.clip != clip) {
-    //        musicSource.clip = clip;
-    //        musicSource.Play();
-    //    }
-    //}
-
-    //public void StopMusic() {
-    //    musicSource.Stop();
-    //}
-
-    //public void PlaySFX(AudioClip clip) {
-    //    foreach (var source in sfxSources) {
-    //        if (!source.isPlaying) // Play on the first available source
-    //        {
-    //            source.clip = clip;
-    //            source.Play();
-    //            return;
-    //        }
-    //    }
-    //}
 
     public void SetMusicVolume(float volume) {
         foreach (var source in _musicSources)
