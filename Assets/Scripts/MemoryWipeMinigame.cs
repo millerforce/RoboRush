@@ -54,7 +54,7 @@ public class MemoryWipeMinigame : MonoBehaviour, IMinigameBase
             else passcode += Char.ToUpper(abc[randIndex]);
         }
 
-        hintTextField.text = "HINT: (" + passcode + ")";
+        hintTextField.text = "HINT: " + passcode;
     }
 
     void onInputChanged(string inputText)
@@ -71,12 +71,17 @@ public class MemoryWipeMinigame : MonoBehaviour, IMinigameBase
         {
             badAttemptField.gameObject.SetActive(true);
         }
+
+        inputField.text = "";
     }
 
     void MinigameCompleted()
     {
         minigameCanvas.SetActive(false);
         gamecompleted = true;
+
+        int day = PlayerPrefs.GetInt("Day");
+        generatePassword(determinePasswordLength(day));
     }
 
     public void StartGame()
