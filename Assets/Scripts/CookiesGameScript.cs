@@ -8,6 +8,8 @@ public class CookieClickerMinigame : MinigameBase
     public Button[] cookieButtons; // Array of buttons for the minigame
     public RectTransform canvasRectTransform; // Reference to the Canvas RectTransform
 
+    public bool gamecompleted = false;
+
     private int cookiesClicked = 0;
 
     void Start()
@@ -19,7 +21,6 @@ public class CookieClickerMinigame : MinigameBase
             PlaceButtonRandomly(button);
         }
         minigameCanvas.SetActive(false); // Hide the minigame canvas initially
-        minigameCanvas.SetActive(true);//Todo: remove this and fix starting minigames
     }
 
     void OnCookieClick(Button button)
@@ -61,6 +62,11 @@ public class CookieClickerMinigame : MinigameBase
         }
 
         // Invoke the completion event
-        CompleteMinigame();
+        gamecompleted = true;
+    }
+
+    public void startGame()
+    {
+        minigameCanvas.SetActive(true);
     }
 }

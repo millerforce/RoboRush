@@ -22,8 +22,8 @@ public class Workstation : MonoBehaviour
     [SerializeField]
     private float takeoffSpeed = 5f;
 
-    [SerializeField]
-    MinigameController minigame;
+    [SerializeReference]
+    MinigameBase minigame;
 
     private void Start()
     {
