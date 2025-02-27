@@ -44,7 +44,8 @@ public class AudioManager : MonoBehaviour {
     {
         if (playMusic)
         {
-            int randomSong = random.Next(0, songs.Length);
+            int randomSong = random.Next(1, songs.Length);
+            Debug.Log("Song " + songs[randomSong].name + " playing");
             PlayMusic(songs[randomSong].name);
         }
         if (playAmbient)
@@ -81,6 +82,14 @@ public class AudioManager : MonoBehaviour {
     {
         if (playMusic && (AudioSettings.dspTime > goalTime - 2))
         {
+            int timeToChange = random.Next(0, 30);
+            if (timeToChange == 2)
+            {
+                int randomSong = random.Next(1, songs.Length);
+                Debug.Log("Song " + songs[randomSong].name + " playing");
+                PlayMusic(songs[randomSong].name);
+                return;
+            }
             PlayScheduledClip();
         }
     }
