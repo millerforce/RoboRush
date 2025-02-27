@@ -1,64 +1,55 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using JetBrains.Annotations;
 
 public class CookieClickerMinigame : MonoBehaviour, IMinigameBase
 {
     public GameObject minigameCanvas; // Reference to the Canvas
     public Button[] cookieButtons; // Array of buttons for the minigame
     public RectTransform canvasRectTransform; // Reference to the Canvas RectTransform
-
-    public Texture2D[] cookieTextures; // Array of cookie textures (0: full, 1: half-eaten, 2: mostly-eaten)
-    public Texture2D[] cookieTextures2; // Array of cookie textures (0: full, 1: half-eaten, 2: mostly-eaten)
-    public Texture2D[] cookieTextures3; // Array of cookie textures (0: full, 1: half-eaten, 2: mostly-eaten)
-    public Texture2D[] cookieTextures4; // Array of cookie textures (0: full, 1: half-eaten, 2: mostly-eaten)
+    public CookieType[] cookieTypes; // Array of different cookie types
 
     public bool gamecompleted = false;
 
     private int cookiesClicked = 0;
     private int[] buttonClickCounts; // Array to keep track of clicks for each button
+    private int[] buttonCookieTypes; // Array to keep track of the cookie type for each button
 
     void Start()
     {
         buttonClickCounts = new int[cookieButtons.Length];
+        buttonCookieTypes = new int[cookieButtons.Length];
 
         // Initialize buttons and set up their click listeners
-        foreach (Button button in cookieButtons)
+        for (int i = 0; i < cookieButtons.Length; i++)
         {
-            button.onClick.AddListener(() => OnCookieClick(button));
-            PlaceButtonRandomly(button);
+            int index = i; // Capture the index for the lambda expression
+            cookieButtons[i].onClick.AddListener(() => OnCookieClick(index));
+            PlaceButtonRandomly(cookieButtons[i]);
+            buttonCookieTypes[i] = Random.Range(0, cookieTypes.Length); // Assign a random cookie type to each button
+            cookieButtons[i].GetComponentInChildren<RawImage>().texture = cookieTypes[buttonCookieTypes[i]].cookieStages[0]; // Set initial texture
         }
         minigameCanvas.SetActive(false); // Hide the minigame canvas initially
     }
 
-    Texture2D[] selectRandomCookie()
+    void OnCookieClick(int index)
     {
-        int cookieType = Random.Range(0, 3);
-        switch (cookieType)
-        {
-            case 0:
-                return 
-        }
-    }
-
-    void OnCookieClick(Button button)
-    {
-        int index = System.Array.IndexOf(cookieButtons, button);
         buttonClickCounts[index]++;
 
-        RawImage buttonImage = button.GetComponentInChildren<RawImage>();
+        RawImage buttonImage = cookieButtons[index].GetComponentInChildren<RawImage>();
 
         if (buttonClickCounts[index] < 3)
         {
             // Change the button texture to a more eaten cookie
-            buttonImage.texture = cookieTextures[buttonClickCounts[index]];
+            buttonImage.texture = cookieTypes[buttonCookieTypes[index]].cookieStages[buttonClickCounts[index]];
+            Debug.Log($"Button {index} clicked {buttonClickCounts[index]} times. Texture changed.");
         }
         else
         {
             // Hide the button after 3 clicks
-            button.gameObject.SetActive(false);
+            cookieButtons[index].gameObject.SetActive(false);
             cookiesClicked++;
+            Debug.Log($"Button {index} clicked 3 times. Button hidden.");
 
             if (cookiesClicked >= cookieButtons.Length)
             {
@@ -92,7 +83,8 @@ public class CookieClickerMinigame : MonoBehaviour, IMinigameBase
         {
             cookieButtons[i].gameObject.SetActive(true);
             buttonClickCounts[i] = 0;
-            cookieButtons[i].GetComponentInChildren<RawImage>().texture = cookieTextures[0]; // Reset to full cookie texture
+            buttonCookieTypes[i] = Random.Range(0, cookieTypes.Length); // Assign a random cookie type to each button
+            cookieButtons[i].GetComponentInChildren<RawImage>().texture = cookieTypes[buttonCookieTypes[i]].cookieStages[0]; // Reset to full cookie texture
             PlaceButtonRandomly(cookieButtons[i]);
         }
 

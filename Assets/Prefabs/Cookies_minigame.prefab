@@ -1530,9 +1530,17 @@ MonoBehaviour:
   - {fileID: 8291870518950988089}
   - {fileID: 6796789468353113061}
   canvasRectTransform: {fileID: 3125138957517818348}
-  cookieTextures:
-  - {fileID: 2800000, guid: d88eeec390b888949bb0046155603545, type: 3}
-  - {fileID: 2800000, guid: 3f59ebe30e9ef0d4383719c34eb36115, type: 3}
-  - {fileID: 2800000, guid: 621bec7de35053140bb7a43a17690069, type: 3}
-  - {fileID: 2800000, guid: 621bec7de35053140bb7a43a17690069, type: 3}
+  cookieTypes:
+  - cookieStages:
+    - {fileID: 2800000, guid: d88eeec390b888949bb0046155603545, type: 3}
+    - {fileID: 2800000, guid: 3f59ebe30e9ef0d4383719c34eb36115, type: 3}
+    - {fileID: 2800000, guid: 621bec7de35053140bb7a43a17690069, type: 3}
+  - cookieStages:
+    - {fileID: 2800000, guid: da7c7f56b8f65ff4eafd7e2797152eee, type: 3}
+    - {fileID: 2800000, guid: 45359f28d119ab94aa232dfcd4d4f48c, type: 3}
+    - {fileID: 2800000, guid: 1d9942707c7e7cf4485e5d7153203fe5, type: 3}
+  - cookieStages:
+    - {fileID: 2800000, guid: 74b85b7e7b84c074091cd2be2d5c0438, type: 3}
+    - {fileID: 2800000, guid: 0d52e154bb3003b40881b260f1d34866, type: 3}
+    - {fileID: 2800000, guid: bad9296b56deb9d4ba6eb03947c0a467, type: 3}
   gamecompleted: 0
