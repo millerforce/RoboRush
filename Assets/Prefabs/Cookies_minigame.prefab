@@ -1543,4 +1543,5 @@ MonoBehaviour:
     - {fileID: 2800000, guid: 74b85b7e7b84c074091cd2be2d5c0438, type: 3}
     - {fileID: 2800000, guid: 0d52e154bb3003b40881b260f1d34866, type: 3}
     - {fileID: 2800000, guid: bad9296b56deb9d4ba6eb03947c0a467, type: 3}
+  NumberOfButtons: 5
   gamecompleted: 0
