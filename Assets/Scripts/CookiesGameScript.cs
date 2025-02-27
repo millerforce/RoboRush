@@ -68,6 +68,7 @@ public class CookieClickerMinigame : MonoBehaviour, IMinigameBase
     public void StartGame()
     {
         minigameCanvas.SetActive(true);
+        gamecompleted = false;
     }
 
     public bool GameFinished()

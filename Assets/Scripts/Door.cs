@@ -15,11 +15,13 @@ public class Door : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.E)) 
             {
+               
+
                 InteractionHintManager.instance.HideHint();
                 PlayerPrefs.SetInt("Day", _dayToStart);
                 PlayerPrefs.Save();
 
-                SceneManager.LoadScene(_levelToLoad);
+                StartCoroutine(GameObject.FindFirstObjectByType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, _levelToLoad));
             }
         }
     }

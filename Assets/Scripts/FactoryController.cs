@@ -72,6 +72,14 @@ public class FactoryController : MonoBehaviour
                 {
                     state = FactoryState.NEXTDAY;
                 }
+
+                if (_timeRemaining <= 0)
+                {
+                    //Display failure message maybe?
+
+                    state = FactoryState.FAILED;
+                }
+
                 break;
 
             case FactoryState.FAILED:

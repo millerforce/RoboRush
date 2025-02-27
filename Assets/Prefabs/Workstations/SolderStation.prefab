@@ -544,8 +544,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddabe2530fa37664b9ec92d9b69d7db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _completionTime: 20
-  takeoffSpeed: 5
+  takeoff: {fileID: 6060448316500502725}
+  _completionTime: 60
+  _cooldownTime: 5
+  _breakdownChance: 0.5
+  _attemptBreakDownInterval: 1
+  stationAnimator: {fileID: 0}
+  robotAnimator: {fileID: 3015784756807720228}
+  stationEffect: {fileID: 6550088743945000371}
 --- !u!1 &2722378691541537188
 GameObject:
   m_ObjectHideFlags: 0
@@ -1193,7 +1199,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 174955545027891023, guid: 8798e5db5c5c19d45bd08a112b959daf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0582
+      value: 0.0943
       objectReference: {fileID: 0}
     - target: {fileID: 174955545027891023, guid: 8798e5db5c5c19d45bd08a112b959daf, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1201,7 +1207,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 174955545027891023, guid: 8798e5db5c5c19d45bd08a112b959daf, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.109
+      value: -0.0557
       objectReference: {fileID: 0}
     - target: {fileID: 174955545027891023, guid: 8798e5db5c5c19d45bd08a112b959daf, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1243,6 +1249,11 @@ PrefabInstance:
 --- !u!4 &2986041470941763126 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 174955545027891023, guid: 8798e5db5c5c19d45bd08a112b959daf, type: 3}
+  m_PrefabInstance: {fileID: 3106672034882443641}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6550088743945000371 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8213310918766791882, guid: 8798e5db5c5c19d45bd08a112b959daf, type: 3}
   m_PrefabInstance: {fileID: 3106672034882443641}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7839783735962334502
@@ -1404,6 +1415,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 786b35096361c484d9f34969a9853b81, type: 3}
+--- !u!198 &6060448316500502725 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3192554721726221703, guid: 786b35096361c484d9f34969a9853b81, type: 3}
+  m_PrefabInstance: {fileID: 8670891876336575810}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6809955105441743454 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2798107760618252060, guid: 786b35096361c484d9f34969a9853b81, type: 3}
