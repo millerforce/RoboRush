@@ -227,7 +227,7 @@ MonoBehaviour:
   - {fileID: 4809589864237414436, guid: fa02a6899c6ffe44187816dd1f537fad, type: 3}
   - {fileID: 1478531084069655149, guid: 2377a388579917d4e8aa40a2fd941d98, type: 3}
   - {fileID: 2425217618630506031, guid: 4793034e33269d64cab54e528085eb17, type: 3}
-  numberOfWorkstations: 8
+  numberOfWorkstations: 24
   obstacles: []
   numberOfObstacles: 0
 --- !u!4 &392584839 stripped
