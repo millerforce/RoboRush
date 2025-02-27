@@ -16,7 +16,9 @@ public enum FactoryState
 public class FactoryController : MonoBehaviour
 {
     [SerializeField]
-    private int _runMinutes;
+    private float _runMinutes;
+
+    private const float _defaultRuntime = 5f;
 
     [SerializeField]
     Clock clock;
@@ -40,6 +42,8 @@ public class FactoryController : MonoBehaviour
     {
         int day = PlayerPrefs.GetInt("Day");
         Debug.Log($"Entering day: {day}");
+
+        SetDifficultyByDay(day);
 
         inEndlessMode = PlayerPrefs.GetInt("Endless") == 1 ? true : false;
 
@@ -66,12 +70,49 @@ public class FactoryController : MonoBehaviour
 
                 TimeSpan timeSpan = TimeSpan.FromSeconds(_timeRemaining);
 
-                clock.clockText.text = timeSpan.Minutes.ToString() + ":" + timeSpan.Seconds.ToString();
+                string outMinutes;
+                string outSeconds;
+
+                int minutes = timeSpan.Minutes;
+                if (minutes <= 0)
+                {
+                    outMinutes = "0";
+                }
+                else
+                {
+                    outMinutes = minutes.ToString();
+                }
+
+                int seconds = timeSpan.Seconds;
+                if (seconds < 10)
+                {
+                    outSeconds = "0" + seconds;
+                }
+                else
+                {
+                    outSeconds = seconds.ToString();
+                }
+                    clock.clockText.text = outMinutes + ":" + outSeconds;
 
                 if (AllStationsDeleted())
                 {
-                    state = FactoryState.NEXTDAY;
+                    if (inEndlessMode)
+                    {
+                        state = FactoryState.NEXTDAY;
+                    }
+                    else
+                    {
+                        state = FactoryState.FAILED;
+                    }
                 }
+
+                if (_timeRemaining <= 0)
+                {
+                    //Display failure message maybe?
+
+                    state = FactoryState.FAILED;
+                }
+
                 break;
 
             case FactoryState.FAILED:
@@ -112,5 +153,10 @@ public class FactoryController : MonoBehaviour
                 stations.Add(station);
             }
         }
+    }
+
+    void SetDifficultyByDay(int day)
+    {
+        _runMinutes = _defaultRuntime - day * 0.05f;
     }
 }

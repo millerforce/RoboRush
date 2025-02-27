@@ -6,7 +6,8 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BirthdayMinigameController : MonoBehaviour {
+public class BirthdayMinigameController : MonoBehaviour, IMinigameBase 
+{
 
     public GameObject minigameCanvas; // Reference to the Canvas
     public Button[] buttons; // Array of buttons for the minigame
@@ -26,18 +27,15 @@ public class BirthdayMinigameController : MonoBehaviour {
     private static float HINT_DEPLAY = 7.5f;
     private float lastHintTime = LAST_HINT_DEFAULT;
 
+    public bool gamecompleted = false;
+
     void Start() {
         // Initialize buttons and set up their click listeners
         foreach (Button button in buttons) {
             button.onClick.AddListener(() => OnButtonClick(button));
         }
-        //minigameCanvas.SetActive(false); // Hide the minigame canvas initially
+        minigameCanvas.SetActive(false); // Hide the minigame canvas initially
         //minigameCanvas.SetActive(true);
-    }
-
-    void OnEnable() {
-        Task.Delay(INITAL_DELAY);
-        PlayHint();
     }
 
     void OnDisable() {
@@ -68,6 +66,9 @@ public class BirthdayMinigameController : MonoBehaviour {
         ResetHint(); // Don't play a hint if they are in the middle of pressing buttons
 
         switch (button.name) {
+            case "ExitButton":
+                minigameCanvas.SetActive(false);
+                break;
             case C_NOTE:
                 AudioManager.instance.PlaySFX("note_c");
                 NewNotePressed("C");
@@ -126,7 +127,19 @@ public class BirthdayMinigameController : MonoBehaviour {
             // YOU WIN!!!
             Debug.Log("You Won!!!");
 
+            gamecompleted = true;
+
             minigameCanvas.SetActive(false);
         }
+    }
+    public void StartGame()
+    {
+        minigameCanvas.SetActive(true);
+        Task.Delay(INITAL_DELAY);
+        PlayHint();
+    }
+    public bool GameFinished()
+    {
+        return gamecompleted;
     }
 }
