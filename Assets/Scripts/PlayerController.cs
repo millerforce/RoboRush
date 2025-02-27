@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
 
     public float rotationSpeed = 5f;
 
+    public bool isPlayingMinigame = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -42,7 +44,7 @@ public class PlayerController : MonoBehaviour
     {
         _moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")).normalized;
 
-        if (_moveDirection != Vector3.zero && state != PlayerState.STARTING)
+        if (!MovementNearZero(_moveDirection) && state != PlayerState.STARTING)
         {
             animator.SetBool("isInteracting", false);
 
@@ -122,5 +124,10 @@ public class PlayerController : MonoBehaviour
             }
         }
         
+    }
+
+    private bool MovementNearZero(Vector3 movement)
+    {
+        return (movement.magnitude <= 0.6);
     }
 }
