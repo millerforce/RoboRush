@@ -195,7 +195,10 @@ public class Workstation : MonoBehaviour
         }
     }
 
+    void SetDifficultyByDay(int day)
+    {
 
+    }
 
     void TrySetParticles(bool flag)
     {
