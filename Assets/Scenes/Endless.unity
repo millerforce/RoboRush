@@ -143,6 +143,10 @@ PrefabInstance:
       propertyPath: tilemapTransform
       value: 
       objectReference: {fileID: 392584841}
+    - target: {fileID: 1004622769387987680, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 2178974998927139309, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -183,6 +187,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7177919238369167267, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 7177919238369167267, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 8010692596169397217, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
       propertyPath: _startLocation
       value: 
