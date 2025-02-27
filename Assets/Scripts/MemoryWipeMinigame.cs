@@ -50,7 +50,7 @@ public class MemoryWipeMinigame : MonoBehaviour, IMinigameBase
         {
             int randIndex = UnityEngine.Random.Range(0, abc.Length);
 
-            if (UnityEngine.Random.Range(0, 1) == 0) passcode += abc[randIndex];
+            if (UnityEngine.Random.Range(0, 2) == 0) passcode += abc[randIndex];
             else passcode += Char.ToUpper(abc[randIndex]);
         }
 
