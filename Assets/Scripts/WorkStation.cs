@@ -17,7 +17,7 @@ public class Workstation : MonoBehaviour
 
     private float _timeCompleted;
 
-    private static float exitHeight = 20f;
+    private static readonly float exitHeight = 20f;
 
     [SerializeField]
     private float takeoffSpeed = 5f;
@@ -25,12 +25,15 @@ public class Workstation : MonoBehaviour
     [SerializeField]
     MinigameController minigame;
 
+    private bool offScreen;
+
     private void Start()
     {
         takeoff = GetComponentInChildren<ParticleSystem>();
         takeoff.Stop();
         state = StationState.WORKING;
         _timeCompleted = 0f;
+        offScreen = false;
     }
 
     private void Update()
@@ -41,8 +44,6 @@ public class Workstation : MonoBehaviour
 
                 _timeCompleted += Time.deltaTime;
 
-                //Debug.Log($"Time passed {_timeCompleted}");
-
                 if (_timeCompleted >= _completionTime)
                 {
                     state = StationState.FINISHED;
@@ -52,8 +53,11 @@ public class Workstation : MonoBehaviour
 
             case StationState.FINISHED:
 
-                FinishTask();
-
+                if (!offScreen)
+                {
+                    FinishTask();
+                }
+               
                 break;
         }
     }
@@ -65,7 +69,7 @@ public class Workstation : MonoBehaviour
             takeoff.Play();
         }
 
-        if (transform.position.y < exitHeight)
+        if (transform.position.y <= exitHeight)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y + takeoffSpeed * Time.deltaTime, transform.position.z);
         }

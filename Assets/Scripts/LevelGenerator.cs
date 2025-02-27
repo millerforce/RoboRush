@@ -27,12 +27,12 @@ public class LevelGenerator : MonoBehaviour
 
     void Start()
     {
-        InitializeGrid();
-        GenerateWorkstations();
+        //InitializeGrid();
+        //GenerateWorkstations();
         // GenerateObstacles();
     }
 
-    void InitializeGrid()
+    public void InitializeGrid()
     {
         // Fixed pillar positions (relative to center)
         Vector3Int[] fixedPillarPositions = {
@@ -53,7 +53,7 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    void GenerateWorkstations()
+    public void GenerateWorkstations()
     {
         List<Vector3Int> validPositions = allowedWorkstationAndObstaclePositions.ToList();
         validPositions = validPositions.OrderBy(a => Random.value).ToList(); // Shuffle positions
