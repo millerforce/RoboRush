@@ -8,7 +8,8 @@ public class LevelGenerator : MonoBehaviour
     public Tilemap tilemap;
     public GameObject pillarPrefab;
     public GameObject[] workstations;
-    public int numberOfWorkstations = 10; // CAP at 10
+    int cap = 10;
+    public int numberOfWorkstations;
     public GameObject[] obstacles;
     public int numberOfObstacles;
 
@@ -74,7 +75,7 @@ public class LevelGenerator : MonoBehaviour
                 {
                     if (CanPlaceWorkstation(pos, rotation))
                     {
-                        PlaceObject(workstations[placedWorkstations % workstations.Length], pos, rotation);
+                        PlaceObject(workstations[Random.Range(0, workstations.Length)], pos, rotation);
                         grid[gridX, gridY] = 2; // Mark as workstation
 
                         switch (rotation)//Mark corresponding space as a robot
@@ -95,7 +96,7 @@ public class LevelGenerator : MonoBehaviour
                     }
                 }
 
-                if (placedWorkstations >= 10) break; // Ensure max 10 workstations
+                if (placedWorkstations >= cap) break; // Ensure max cap workstations
             }
 
             validLayout = AreAllWorkstationsReachable();
@@ -161,7 +162,9 @@ public class LevelGenerator : MonoBehaviour
         {
             case 0: return workstationPos + new Vector3Int(0, -1, 0);
             case -90: return workstationPos + new Vector3Int(1, 0, 0);
+            case -180:
             case 180: return workstationPos + new Vector3Int(0, 1, 0);
+
             case 90: return workstationPos + new Vector3Int(-1, 0, 0);
             default: return workstationPos;
         }
