@@ -14,6 +14,9 @@ public class Workstation : MonoBehaviour
     [SerializeField]
     private ParticleSystem takeoff;
 
+    [SerializeField]
+    private GameObject alert;
+
     private StationState state;
 
     //[SerializeField]
@@ -57,6 +60,8 @@ public class Workstation : MonoBehaviour
 
     private void Start()
     {
+        alert.SetActive(false);
+
         int day = PlayerPrefs.GetInt("Day");
         SetDifficultyByDay(day);
 
@@ -94,6 +99,7 @@ public class Workstation : MonoBehaviour
         switch (state)
         {
             case StationState.WORKING:
+                alert.SetActive(false);
 
                 _timeCompleted += Time.deltaTime;
                 _timeSinceBreakdown += Time.deltaTime;
@@ -134,10 +140,12 @@ public class Workstation : MonoBehaviour
             case StationState.BROKEN:
 
                 //Add logic for showing exclamation point
+                alert.SetActive(true);
 
                 break;
 
             case StationState.PLAYINGMINIGAME:
+                alert.SetActive(false);
 
                 if (activeMinigame.GameFinished())
                 {
@@ -151,6 +159,7 @@ public class Workstation : MonoBehaviour
                 break;
 
             case StationState.FINISHED:
+                alert.SetActive(false);
                 //This is where they take off
                 FinishTask();
                
