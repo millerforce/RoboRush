@@ -228,8 +228,9 @@ MonoBehaviour:
   - {fileID: 1478531084069655149, guid: 2377a388579917d4e8aa40a2fd941d98, type: 3}
   - {fileID: 2425217618630506031, guid: 4793034e33269d64cab54e528085eb17, type: 3}
   numberOfWorkstations: 10
-  obstacles: []
-  numberOfObstacles: 0
+  obstacles:
+  - {fileID: 657557237818285758, guid: 60712dbd5aede484d95166a444dbcb10, type: 3}
+  numberOfObstacles: 6
 --- !u!4 &392584839 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5625702327642645110, guid: be5318279ffee6a46806c55de60a4df2, type: 3}
