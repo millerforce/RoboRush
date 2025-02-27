@@ -1,57 +1,106 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class CookieClickerMinigame : MonoBehaviour, IMinigameBase
 {
     public GameObject minigameCanvas; // Reference to the Canvas
-    public Button[] cookieButtons; // Array of buttons for the minigame
     public RectTransform canvasRectTransform; // Reference to the Canvas RectTransform
     public CookieType[] cookieTypes; // Array of different cookie types
 
-    public bool gamecompleted = false;
+    [SerializeField]
+    public int maxCookies; // Number of cookie buttons to generate
+    [SerializeField]
+    public int minCookies; // Number of cookie buttons to generate
+    [SerializeField]
+    public Vector3 cookieScale;
+    [SerializeField]
+    public int maxLevel; // At what level will the max difficulty of game happen
+
+    private List<Button> cookieButtons = new List<Button>(); // List of buttons
+    private List<int> buttonClickCounts = new List<int>(); // Click counts per button
+    private List<int> buttonCookieTypes = new List<int>(); // Cookie type per button
 
     private int cookiesClicked = 0;
-    private int[] buttonClickCounts; // Array to keep track of clicks for each button
-    private int[] buttonCookieTypes; // Array to keep track of the cookie type for each button
+    private bool gamecompleted = false;
 
     void Start()
     {
-        buttonClickCounts = new int[cookieButtons.Length];
-        buttonCookieTypes = new int[cookieButtons.Length];
+        int day = PlayerPrefs.GetInt("Day");
 
-        // Initialize buttons and set up their click listeners
-        for (int i = 0; i < cookieButtons.Length; i++)
+        GenerateCookies(determineAmountOfCookies(day));
+        minigameCanvas.SetActive(false); // Hide the minigame initially
+    }
+
+    int determineAmountOfCookies(int day)
+    {
+        return Mathf.FloorToInt(Mathf.Lerp(minCookies, maxCookies, day / maxLevel));
+    }
+
+    void GenerateCookies(int amount)
+    {
+        // Clear old buttons if re-generating
+        foreach (Button btn in cookieButtons)
         {
-            int index = i; // Capture the index for the lambda expression
-            cookieButtons[i].onClick.AddListener(() => OnCookieClick(index));
-            PlaceButtonRandomly(cookieButtons[i]);
-            buttonCookieTypes[i] = Random.Range(0, cookieTypes.Length); // Assign a random cookie type to each button
-            cookieButtons[i].GetComponentInChildren<RawImage>().texture = cookieTypes[buttonCookieTypes[i]].cookieStages[0]; // Set initial texture
+            Destroy(btn.gameObject);
         }
-        minigameCanvas.SetActive(false); // Hide the minigame canvas initially
+        cookieButtons.Clear();
+        buttonClickCounts.Clear();
+        buttonCookieTypes.Clear();
+
+        for (int i = 0; i < amount; i++)
+        {
+            CreateCookieButton();
+        }
+    }
+
+    void CreateCookieButton()
+    {
+        // Create a new UI Button
+        GameObject newButtonObj = new GameObject("CookieButton", typeof(RectTransform), typeof(Button), typeof(RawImage));
+        newButtonObj.transform.SetParent(minigameCanvas.transform, false);
+
+        Button newButton = newButtonObj.GetComponent<Button>();
+        RawImage buttonImage = newButtonObj.GetComponent<RawImage>();
+
+        // Configure button visuals
+        int cookieType = Random.Range(0, cookieTypes.Length);
+        buttonImage.texture = cookieTypes[cookieType].cookieStages[0];
+
+        // Store button details
+        int index = cookieButtons.Count;
+        newButton.onClick.AddListener(() => OnCookieClick(index));
+
+        cookieButtons.Add(newButton);
+        buttonClickCounts.Add(0);
+        buttonCookieTypes.Add(cookieType);
+
+        // Set the scale of the button
+        RectTransform rect = newButton.GetComponent<RectTransform>();
+        rect.localScale = cookieScale;
+
+        // Position button randomly in the canvas
+        PlaceButtonRandomly(newButton);
     }
 
     void OnCookieClick(int index)
     {
         buttonClickCounts[index]++;
 
-        RawImage buttonImage = cookieButtons[index].GetComponentInChildren<RawImage>();
+        RawImage buttonImage = cookieButtons[index].GetComponent<RawImage>();
 
         if (buttonClickCounts[index] < 3)
         {
-            // Change the button texture to a more eaten cookie
+            // Update texture to show a more eaten cookie
             buttonImage.texture = cookieTypes[buttonCookieTypes[index]].cookieStages[buttonClickCounts[index]];
-            Debug.Log($"Button {index} clicked {buttonClickCounts[index]} times. Texture changed.");
         }
         else
         {
             // Hide the button after 3 clicks
             cookieButtons[index].gameObject.SetActive(false);
             cookiesClicked++;
-            Debug.Log($"Button {index} clicked 3 times. Button hidden.");
 
-            if (cookiesClicked >= cookieButtons.Length)
+            if (cookiesClicked >= cookieButtons.Count)
             {
                 MinigameCompleted();
             }
@@ -60,35 +109,37 @@ public class CookieClickerMinigame : MonoBehaviour, IMinigameBase
 
     void PlaceButtonRandomly(Button button)
     {
-        float x = Random.Range(0, canvasRectTransform.rect.width);
-        float y = Random.Range(0, canvasRectTransform.rect.height);
-        button.GetComponent<RectTransform>().anchoredPosition = new Vector2(x - canvasRectTransform.rect.width / 2, y - canvasRectTransform.rect.height / 2);
+        RectTransform rect = button.GetComponent<RectTransform>();
+        RectTransform panelRectTransform = canvasRectTransform.GetComponent<RectTransform>(); // Reference the spawning panel
 
-        // Place the image at the same position as the button
-        RawImage buttonImage = button.GetComponentInChildren<RawImage>();
-        if (buttonImage != null)
-        {
-            buttonImage.rectTransform.anchoredPosition = new Vector2(x - canvasRectTransform.rect.width / 2, y - canvasRectTransform.rect.height / 2);
-        }
+        // Set pivot & anchors to center
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchorMin = new Vector2(0.5f, 0.5f);
+        rect.anchorMax = new Vector2(0.5f, 0.5f);
+
+        // Get panel dimensions
+        float panelWidth = panelRectTransform.rect.width;
+        float panelHeight = panelRectTransform.rect.height;
+
+        // Safe padding to prevent overlap
+        float padding = 50f;
+
+        // Calculate random position within the panel
+        float x = Random.Range(-panelWidth / 2 + padding, panelWidth / 2 - padding);
+        float y = Random.Range(-panelHeight / 2 + padding, panelHeight / 2 - padding);
+
+        // Convert local panel position to world position
+        Vector3 worldPosition = panelRectTransform.TransformPoint(new Vector3(x, y, 0));
+
+        // Assign position relative to the panel
+        rect.position = worldPosition;
     }
+
 
     void MinigameCompleted()
     {
-        // Logic for when the minigame is completed
         minigameCanvas.SetActive(false);
         cookiesClicked = 0;
-
-        // Reset buttons for next time
-        for (int i = 0; i < cookieButtons.Length; i++)
-        {
-            cookieButtons[i].gameObject.SetActive(true);
-            buttonClickCounts[i] = 0;
-            buttonCookieTypes[i] = Random.Range(0, cookieTypes.Length); // Assign a random cookie type to each button
-            cookieButtons[i].GetComponentInChildren<RawImage>().texture = cookieTypes[buttonCookieTypes[i]].cookieStages[0]; // Reset to full cookie texture
-            PlaceButtonRandomly(cookieButtons[i]);
-        }
-
-        // Invoke the completion event
         gamecompleted = true;
     }
 
