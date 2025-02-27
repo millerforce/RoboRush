@@ -115,8 +115,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Robot"))
         {
-            Debug.Log("Interaction collider entered");
-
+         
             if (Input.GetKey(KeyCode.E))
             {
                 state = PlayerState.INTERACTING;
