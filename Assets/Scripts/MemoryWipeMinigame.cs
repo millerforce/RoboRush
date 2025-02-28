@@ -52,7 +52,7 @@ public class MemoryWipeMinigame : MonoBehaviour, IMinigameBase
 
     int determinePasswordLength(int day)
     {
-        return Mathf.FloorToInt(Mathf.Lerp(minLength, maxLength, day / maxLevel));
+        return Mathf.FloorToInt(Mathf.Lerp(minLength, maxLength, Mathf.Clamp01(day / maxLevel)));
     }
 
     void generatePassword(int size)
@@ -61,6 +61,7 @@ public class MemoryWipeMinigame : MonoBehaviour, IMinigameBase
         //int passwordIndex = UnityEngine.Random.Range(0, passwordList.Length);
         //passcode = passwordList[passwordIndex];
 
+        passcode = "";
         string abc = "abcdefghjkmnopqrstuvwxyz";
 
         for (int i = 0; i < size; i++)
