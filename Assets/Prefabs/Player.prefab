@@ -131,8 +131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb8210306d5995345839892d11348c26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WalkSpeed: 2.5
-  SprintSpeed: 4
+  WalkSpeed: 2
+  SprintSpeed: 3.2
   _startLocation: {fileID: 0}
   playerCollider: {fileID: 2311156781944033513}
   rotationSpeed: 5
