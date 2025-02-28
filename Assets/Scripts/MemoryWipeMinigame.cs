@@ -61,6 +61,7 @@ public class MemoryWipeMinigame : MonoBehaviour, IMinigameBase
         //int passwordIndex = UnityEngine.Random.Range(0, passwordList.Length);
         //passcode = passwordList[passwordIndex];
 
+        passcode = "";
         string abc = "abcdefghjkmnopqrstuvwxyz";
 
         for (int i = 0; i < size; i++)
