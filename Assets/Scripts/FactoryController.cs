@@ -190,7 +190,7 @@ public class FactoryController : MonoBehaviour
 
             RectTransform rectTransform = progressBarObj.transform.Find("ProgressBarHolder").GetComponent<RectTransform>();
             // Set the global position
-            rectTransform.anchoredPosition = new Vector2(30 + i * 55, -5);
+            rectTransform.anchoredPosition = new Vector2(30 + i * 55, -10);
             Transform alertChild = stations[i].transform.Find("alert");
             Renderer childRenderer = alertChild.GetComponent<Renderer>();
             childRenderer.material = alertMaterials[i];
