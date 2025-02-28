@@ -134,7 +134,9 @@ MonoBehaviour:
   WalkSpeed: 2
   SprintSpeed: 3
   _startLocation: {fileID: 0}
+  playerCollider: {fileID: 2311156781944033513}
   rotationSpeed: 5
+  isPlayingMinigame: 0
 --- !u!54 &166440563613118322
 Rigidbody:
   m_ObjectHideFlags: 0
