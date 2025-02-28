@@ -185,20 +185,23 @@ public class Workstation : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (allowedToPlayMinigame)
+        if (!allowedToPlayMinigame)
         {
-            if (!other.isTrigger && GetComponent<Collider>().isTrigger)
-            {
-                if (other.CompareTag("Player") && state == StationState.BROKEN)
-                {
-                    Debug.Log("Player in active minigame trigger");
-                    if (Input.GetKey(KeyCode.E))
-                    {
-                        activeMinigame.StartGame();
-                        state = StationState.PLAYINGMINIGAME;
-                    }
-                }
-            }
+            return;
+        }
+        if (other.isTrigger && !GetComponent<Collider>().isTrigger)
+        {
+            return;
+        }
+        if (!other.CompareTag("Player") && state != StationState.BROKEN)
+        {
+            return;
+        }
+        Debug.Log("Player in active minigame trigger");
+        if (Input.GetKey(KeyCode.E))
+        {
+            activeMinigame.StartGame();
+            state = StationState.PLAYINGMINIGAME;
         }
     }
 
