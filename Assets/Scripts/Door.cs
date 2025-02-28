@@ -15,11 +15,20 @@ public class Door : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.E)) 
             {
-                PlayerPrefs.SetInt("Endless", _dayToStart.Equals("Endless") ? 1 : 0);
+                if (_levelToLoad.Equals("Endless"))
+                {
+                    PlayerPrefs.SetInt("Endless", _levelToLoad.Equals("Endless") ? 1 : 0);
+                    PlayerPrefs.Save();
+                }
+                else
+                {
+                    PlayerPrefs.SetInt("Day", _dayToStart);
+                    PlayerPrefs.Save();
+                }
+                
 
                 InteractionHintManager.instance.HideHint();
-                PlayerPrefs.SetInt("Day", _dayToStart);
-                PlayerPrefs.Save();
+                
 
                 StartCoroutine(GameObject.FindFirstObjectByType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, _levelToLoad));
             }

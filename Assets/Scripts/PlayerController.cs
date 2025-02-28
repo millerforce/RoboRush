@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public float WalkSpeed = 2f;
 
     [SerializeField]
-    public float SprintSpeed = 3f;
+    public float SprintSpeed = 4f;
 
     [SerializeField]
     private Transform _startLocation;

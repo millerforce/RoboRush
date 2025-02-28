@@ -32,9 +32,9 @@ public class LevelGenerator : MonoBehaviour
 
     void Start()
     {
-        string currentDay = PlayerPrefs.GetString("Day", "1");
-        Debug.Log("Current Day:" + currentDay);
-        int dayNumber = int.Parse(currentDay);
+        int dayNumber = PlayerPrefs.GetInt("Day", 1);
+        Debug.Log("Current Day:" + dayNumber);
+        //int dayNumber = int.Parse(dayNumber);
         numberOfWorkstations = ChooseNumberOfWorkstations(dayNumber);
         numberOfObstacles = ChooseNumberOfObstacles(dayNumber);
         InitializeGrid();
