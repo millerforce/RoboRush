@@ -23,6 +23,7 @@ public class CookieClickerMinigame : MonoBehaviour, IMinigameBase
 
     private int cookiesClicked = 0;
     private bool gamecompleted = false;
+    private bool isActive = false;
 
     void Start()
     {
@@ -139,6 +140,7 @@ public class CookieClickerMinigame : MonoBehaviour, IMinigameBase
     void MinigameCompleted()
     {
         minigameCanvas.SetActive(false);
+        isActive = false;
         cookiesClicked = 0;
         gamecompleted = true;
         int day = PlayerPrefs.GetInt("Day", 1);
@@ -148,11 +150,17 @@ public class CookieClickerMinigame : MonoBehaviour, IMinigameBase
     public void StartGame()
     {
         minigameCanvas.SetActive(true);
+        isActive = true;
         gamecompleted = false;
     }
 
     public bool GameFinished()
     {
         return gamecompleted;
+    }
+
+    public bool IsRunning()
+    {
+        return isActive;
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -83,8 +82,22 @@ public class Workstation : MonoBehaviour
         _canBreak = false;
         _timeSinceBreakdown = 0f;
 
-        StartCoroutine(WaitToFindScripts());
-        
+        MonoBehaviour[] scripts = GetComponentsInChildren<MonoBehaviour>();
+        foreach (MonoBehaviour script in scripts)
+        {
+            if (script is IMinigameBase)
+            {
+                minigames.Add(script as IMinigameBase);
+            }
+        }
+
+        int rand;
+        if (minigames.Count > 0)
+        {
+            rand = Random.Range(0, minigames.Count);
+            activeMinigame = minigames[rand];
+        }
+
     }
 
     private void Update()
@@ -125,7 +138,7 @@ public class Workstation : MonoBehaviour
                             _canBreak = false;
                         }
                     }
-                        _timeSinceAttemptedBreakdown += Time.deltaTime;
+                    _timeSinceAttemptedBreakdown += Time.deltaTime;
                 }
 
                 break;
@@ -161,7 +174,7 @@ public class Workstation : MonoBehaviour
                 alert.SetActive(false);
                 //This is where they take off
                 FinishTask();
-               
+
                 break;
         }
     }
@@ -215,7 +228,7 @@ public class Workstation : MonoBehaviour
 
     void SetDifficultyByDay(int day)
     {
-        float dayLength = 2 - (day * 0.05f);
+        float dayLength = 5 - (day * 0.05f);
 
         _completionTime = dayLength * 0.5f * 60;
 
@@ -246,25 +259,10 @@ public class Workstation : MonoBehaviour
         }
     }
 
-    IEnumerator WaitToFindScripts()
+
+    public float GetProgress()
     {
-        yield return new WaitForSeconds(3);
-
-        MonoBehaviour[] scripts = GetComponentsInChildren<MonoBehaviour>(true);
-        foreach (MonoBehaviour script in scripts)
-        {
-            if (script is IMinigameBase)
-            {
-                minigames.Add(script as IMinigameBase);
-            }
-        }
-
-        int rand;
-        if (minigames.Count > 0)
-        {
-            rand = Random.Range(0, minigames.Count);
-            activeMinigame = minigames[rand];
-        }
+        return _timeCompleted / _completionTime;
     }
 
     void ChanceStartState()

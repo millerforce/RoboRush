@@ -20,6 +20,8 @@ public class MemoryWipeMinigame : MonoBehaviour, IMinigameBase
     [SerializeField] int minLength;
     [SerializeField] int maxLevel;
 
+    private bool isActive = false;
+
     void Start()
     {
         int day = PlayerPrefs.GetInt("Day");
@@ -50,7 +52,7 @@ public class MemoryWipeMinigame : MonoBehaviour, IMinigameBase
         {
             int randIndex = UnityEngine.Random.Range(0, abc.Length);
 
-            if (UnityEngine.Random.Range(0, 1) == 0) passcode += abc[randIndex];
+            if (UnityEngine.Random.Range(0, 2) == 0) passcode += abc[randIndex];
             else passcode += Char.ToUpper(abc[randIndex]);
         }
 
@@ -78,6 +80,7 @@ public class MemoryWipeMinigame : MonoBehaviour, IMinigameBase
     void MinigameCompleted()
     {
         minigameCanvas.SetActive(false);
+        isActive = false;
         gamecompleted = true;
 
         int day = PlayerPrefs.GetInt("Day");
@@ -89,11 +92,16 @@ public class MemoryWipeMinigame : MonoBehaviour, IMinigameBase
         Debug.Log("Started Game");
 
         minigameCanvas.SetActive(true);
+        isActive = true;
         gamecompleted = false;
     }
 
     public bool GameFinished()
     {
         return gamecompleted;
+    }
+    public bool IsRunning()
+    {
+        return isActive;
     }
 }
