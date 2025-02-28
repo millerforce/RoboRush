@@ -238,56 +238,6 @@ public class FactoryController : MonoBehaviour
         return false;
     }
 
-    bool IsAnyMinigameRunning()
-    {
-        foreach (Workstation workstation in stations)
-        {
-            if (workstation.playingMinigame)
-            {
-                foreach (Workstation station in stations)
-                {
-                    if (!station.playingMinigame)
-                    {
-                        station.allowedToPlayMinigame = false;
-                    }
-                }
-                return true;
-            }
-        }
-
-        foreach (Workstation station in stations)
-        {
-            station.allowedToPlayMinigame = true;
-        }
-
-        return false;
-    }
-
-    bool IsAnyMinigameRunning()
-    {
-        foreach (Workstation workstation in stations)
-        {
-            if (workstation.playingMinigame)
-            {
-                foreach (Workstation station in stations)
-                {
-                    if (!station.playingMinigame)
-                    {
-                        station.allowedToPlayMinigame = false;
-                    }
-                }
-                return true;
-            }
-        }
-
-        foreach (Workstation station in stations)
-        {
-            station.allowedToPlayMinigame = true;
-        }
-
-        return false;
-    }
-
     void SetDifficultyByDay(int day)
     {
         _runMinutes = _defaultRuntime - day * 0.05f;
