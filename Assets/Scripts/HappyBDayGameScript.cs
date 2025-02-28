@@ -96,27 +96,28 @@ public class BirthdayMinigameController : MonoBehaviour, IMinigameBase
 
     async void PlayRefrenceSong() {
         for (int i = 0; i < CORRECT_BUTTON_ORDER.Count; i++) {
+            if (minigameCanvas.activeInHierarchy && (lastHintTime != -1f) && (Time.time - lastHintTime >= HINT_DEPLAY)) {
+                string note = CORRECT_BUTTON_ORDER[i];
 
-            string note = CORRECT_BUTTON_ORDER[i];
-
-            switch (note) {
-                case "C":
-                    AudioManager.instance.PlaySFX("note_c");
-                    break;
-                case "E":
-                    AudioManager.instance.PlaySFX("note_e");
-                    break;
-                case "D":
-                    AudioManager.instance.PlaySFX("note_d");
-                    break;
-                case "F":
-                    AudioManager.instance.PlaySFX("note_f");
-                    break;
-                default:
-                    Debug.LogWarning("Unknown note: " + note);
-                    return;
+                switch (note) {
+                    case "C":
+                        AudioManager.instance.PlaySFX("note_c");
+                        break;
+                    case "E":
+                        AudioManager.instance.PlaySFX("note_e");
+                        break;
+                    case "D":
+                        AudioManager.instance.PlaySFX("note_d");
+                        break;
+                    case "F":
+                        AudioManager.instance.PlaySFX("note_f");
+                        break;
+                    default:
+                        Debug.LogWarning("Unknown note: " + note);
+                        return;
+                }
+                await Task.Delay(NOTE_DELAYS[i]);
             }
-            await Task.Delay(NOTE_DELAYS[i]);
         }
     }
 
