@@ -14,7 +14,6 @@ public class LevelGenerator : MonoBehaviour
     int obstacleCap = 6;
     public int numberOfObstacles;
 
-
     int[,] grid = new int[9, 9]; // 9x9 grid
     int gridOffset = 4; // Align grid with world positions
 
