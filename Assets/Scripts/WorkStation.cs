@@ -91,7 +91,7 @@ public class Workstation : MonoBehaviour
             rand = Random.Range(0, minigames.Count);
             activeMinigame = minigames[rand];
         }
-        
+
     }
 
     private void Update()
@@ -132,7 +132,7 @@ public class Workstation : MonoBehaviour
                             _canBreak = false;
                         }
                     }
-                        _timeSinceAttemptedBreakdown += Time.deltaTime;
+                    _timeSinceAttemptedBreakdown += Time.deltaTime;
                 }
 
                 break;
@@ -162,7 +162,7 @@ public class Workstation : MonoBehaviour
                 alert.SetActive(false);
                 //This is where they take off
                 FinishTask();
-               
+
                 break;
         }
     }
@@ -191,14 +191,14 @@ public class Workstation : MonoBehaviour
             if (other.CompareTag("Player") && state == StationState.BROKEN || state == StationState.PLAYINGMINIGAME)
             {
                 Debug.Log("Player in active minigame trigger");
-            if (Input.GetKey(KeyCode.E))
-            {
-                activeMinigame.StartGame();
-                state = StationState.PLAYINGMINIGAME;
+                if (Input.GetKey(KeyCode.E))
+                {
+                    activeMinigame.StartGame();
+                    state = StationState.PLAYINGMINIGAME;
+                }
             }
         }
-        }
-        
+
     }
 
     private void TryAnimation(Animator animator, string animation, bool flag)
@@ -240,5 +240,11 @@ public class Workstation : MonoBehaviour
                 }
             }
         }
+    }
+
+
+    public float GetProgress()
+    {
+        return _timeCompleted / _completionTime;
     }
 }
