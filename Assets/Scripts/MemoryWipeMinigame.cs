@@ -20,6 +20,17 @@ public class MemoryWipeMinigame : MonoBehaviour, IMinigameBase
     [SerializeField] int minLength;
     [SerializeField] int maxLevel;
 
+    public string[] passwordList =
+    {
+        "password",
+        "qwerty",
+        "abc123",
+        "iamhuman",
+        "teamleaderconnor",
+        "1234",
+        "12345"
+    };
+
     private bool isActive = false;
 
     void Start()
@@ -45,16 +56,19 @@ public class MemoryWipeMinigame : MonoBehaviour, IMinigameBase
 
     void generatePassword(int size)
     {
-        passcode = "";
-        string abc = "abcdefghijklmnopqrstuvwxyz";
+        //get random number, assign passcode to passwordExamples[random]
+        int passwordIndex = UnityEngine.Random.Range(0, passwordList.Length);
+        passcode = passwordList[passwordIndex];
+        
+        //string abc = "abcdefghijklmnopqrstuvwxyz";
 
-        for (int i = 0; i < size; i++)
-        {
-            int randIndex = UnityEngine.Random.Range(0, abc.Length);
+        //for (int i = 0; i < size; i++)
+        //{
+        //    int randIndex = UnityEngine.Random.Range(0, abc.Length);
 
-            if (UnityEngine.Random.Range(0, 2) == 0) passcode += abc[randIndex];
-            else passcode += Char.ToUpper(abc[randIndex]);
-        }
+        //    if (UnityEngine.Random.Range(0, 2) == 0) passcode += abc[randIndex];
+        //    else passcode += Char.ToUpper(abc[randIndex]);
+        //}
 
         hintTextField.text = "HINT: " + passcode;
     }
