@@ -27,6 +27,8 @@ public class FactoryController : MonoBehaviour
     [SerializeField]
     Clock clock;
 
+    public GameObject progBarPrefab;
+
     private float _timeRemaining;
 
     [SerializeField]
@@ -40,6 +42,12 @@ public class FactoryController : MonoBehaviour
     private GameObject[] foundStations;
     private List<Workstation> stations = new();
     private bool inEndlessMode = false;
+
+    public Material[] alertMaterials;
+
+
+
+    Color[] alertColors = { new Color(1, 0, 0), new Color(0.9924106f, 0, 1), new Color(0.66044f, 0, 1), new Color(0.04705951f, 0, 1), new Color(0, 0.7338469f, 1), new Color(0, 1, 0.6611695f), new Color(0, 1, 0), new Color(1, 0.9447687f, 0), new Color(1, 0.6415883f, 0), new Color(0.2578616f, 0.1661031f, 0.1224437f) };
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
