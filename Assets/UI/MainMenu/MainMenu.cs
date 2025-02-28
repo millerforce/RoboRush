@@ -7,9 +7,12 @@ public class MainMenu : MonoBehaviour {
         SceneManager.LoadScene("BreakRoom");
     }
 
+    public void Credits() {
+        SceneManager.LoadScene("Credits");
+    }
+
     public void ExitGame() {
         Application.Quit();
     }
-
 
 }

@@ -15,7 +15,7 @@ public class BreakRoom : MonoBehaviour
     {
         starting = true;
 
-        int currentDay = PlayerPrefs.GetInt("Day", -1);
+        int currentDay = PlayerPrefs.GetInt("Day", 0);
         Debug.Log("Current Day:" + currentDay);
         clipBoard.clipboardText.text = currentDay.ToString();
     }
