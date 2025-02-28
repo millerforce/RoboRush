@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
 using UnityEngine.UI;
+using System.Threading.Tasks;
 
 public enum FactoryState
 {
@@ -39,13 +40,13 @@ public class FactoryController : MonoBehaviour
     private List<Workstation> stations = new();
     private bool inEndlessMode = false;
 
+    private bool isAMinigameRunning = false;
+
     public Material[] alertMaterials;
 
     public GameObject progBarPrefab;
 
     Color[] alertColors = { new Color(1, 0, 0), new Color(0.9924106f, 0, 1), new Color(0.66044f, 0, 1), new Color(0.04705951f, 0, 1), new Color(0, 0.7338469f, 1), new Color(0, 1, 0.6611695f), new Color(0, 1, 0), new Color(1, 0.9447687f, 0), new Color(1, 0.6415883f, 0), new Color(0.2578616f, 0.1661031f, 0.1224437f) };
-
-    private bool isAMinigameRunning = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -210,6 +211,56 @@ public class FactoryController : MonoBehaviour
             }
 
         }
+    }
+
+    bool IsAnyMinigameRunning()
+    {
+        foreach (Workstation workstation in stations)
+        {
+            if (workstation.playingMinigame)
+            {
+                foreach (Workstation station in stations)
+                {
+                    if (!station.playingMinigame)
+                    {
+                        station.allowedToPlayMinigame = false;
+                    }
+                }
+                return true;
+            }
+        }
+
+        foreach (Workstation station in stations)
+        {
+            station.allowedToPlayMinigame = true;
+        }
+
+        return false;
+    }
+
+    bool IsAnyMinigameRunning()
+    {
+        foreach (Workstation workstation in stations)
+        {
+            if (workstation.playingMinigame)
+            {
+                foreach (Workstation station in stations)
+                {
+                    if (!station.playingMinigame)
+                    {
+                        station.allowedToPlayMinigame = false;
+                    }
+                }
+                return true;
+            }
+        }
+
+        foreach (Workstation station in stations)
+        {
+            station.allowedToPlayMinigame = true;
+        }
+
+        return false;
     }
 
     bool IsAnyMinigameRunning()
