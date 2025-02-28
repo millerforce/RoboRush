@@ -56,8 +56,8 @@ public class AudioManager : MonoBehaviour {
 
     public void PlayMusic()
     {
-        this.currentSong = songs[1];
-        this.currentMusic = currentSong.sounds[0];
+        int randomSound = random.Next(1, currentSong.sounds.Length);
+        this.currentMusic = currentSong.sounds[randomSound];
         if (this.currentMusic == null)
         {
             Debug.LogWarning("Music: " + currentSong.sounds[0].name + " not found!");
