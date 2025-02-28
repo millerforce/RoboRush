@@ -33,6 +33,7 @@ public class DayDisplay : MonoBehaviour
         dayText.text = "Day " + dayValue.ToString();
     }
 
+
     public IEnumerator ShowDayCanvas()
     {
         UpdateDayText();
