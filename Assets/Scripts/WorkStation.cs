@@ -62,6 +62,8 @@ public class Workstation : MonoBehaviour
     [SerializeField]
     ParticleSystem stationEffect;
 
+    private string[] brokeSFX = { "bot_aaah_low", "bot_aaah", "bot_ack", "bot_off", "bot_sad", "bot_waoa" };
+
     private void Start()
     {
         alert.SetActive(false);
@@ -136,6 +138,7 @@ public class Workstation : MonoBehaviour
                             state = StationState.BROKEN;
                             _timeSinceAttemptedBreakdown = 0f;
                             _canBreak = false;
+                            PlayRandomSound();
                         }
                     }
                     _timeSinceAttemptedBreakdown += Time.deltaTime;
@@ -282,5 +285,12 @@ public class Workstation : MonoBehaviour
         {
             state = StationState.WORKING;
         }
+    }
+
+    void PlayRandomSound()
+    {
+        int rand = Random.Range(0, 7);
+
+        AudioManager.instance.PlaySFX(brokeSFX[rand]);
     }
 }
