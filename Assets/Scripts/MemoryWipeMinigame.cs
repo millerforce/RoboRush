@@ -40,6 +40,7 @@ public class MemoryWipeMinigame : MonoBehaviour, IMinigameBase
 
         badAttemptField.gameObject.SetActive(false);
         minigameCanvas.SetActive(false); // Hide the minigame initially
+        isActive = false;
 
         inputField.onValueChanged.AddListener(onInputChanged);
         inputField.onEndEdit.AddListener(guessPassword);
