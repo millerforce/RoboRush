@@ -121,6 +121,9 @@ public class FactoryController : MonoBehaviour
 
             case FactoryState.FAILED:
 
+                PlayerPrefs.SetInt("Day", 1);
+                PlayerPrefs.Save();
+
                 SceneManager.LoadScene("BreakRoom");
 
                 break;
