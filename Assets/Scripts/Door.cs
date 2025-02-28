@@ -26,10 +26,8 @@ public class Door : MonoBehaviour
                     PlayerPrefs.Save();
                 }
                 
-
                 InteractionHintManager.instance.HideHint();
                 
-
                 StartCoroutine(GameObject.FindFirstObjectByType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, _levelToLoad));
             }
         }

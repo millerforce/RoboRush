@@ -39,7 +39,7 @@ public class Workstation : MonoBehaviour
     //[SerializeField]
     private float _attemptBreakDownInterval = 1f;
 
-    private static readonly float exitHeight = 20f;
+    private static readonly float exitHeight = 10f;
 
     private static readonly float takeoffSpeed = 5f;
 
@@ -147,7 +147,7 @@ public class Workstation : MonoBehaviour
 
                 //Add logic for showing exclamation point
                 alert.SetActive(true);
-                playingMinigame = true;
+                
 
                 break;
 
@@ -156,11 +156,13 @@ public class Workstation : MonoBehaviour
 
                 if (!activeMinigame.IsRunning())
                 {
+                    playingMinigame = false;
                     state = StationState.BROKEN;
                 }
 
                 if (activeMinigame.GameFinished())
                 {
+                    playingMinigame = false;
                     Debug.Log("Station has been fixed");
                     state = StationState.WORKING;
                     _timeSinceBreakdown = 0f;//reset cooldown timer
@@ -202,17 +204,18 @@ public class Workstation : MonoBehaviour
         {
             return;
         }
-        if (other.isTrigger && !GetComponent<Collider>().isTrigger)
+        if (other.isTrigger || !GetComponent<Collider>().isTrigger)
         {
             return;
         }
-        if (!other.CompareTag("Player") && state != StationState.BROKEN)
+        if (!other.CompareTag("Player") || state != StationState.BROKEN)
         {
             return;
         }
         Debug.Log("Player in active minigame trigger");
         if (Input.GetKey(KeyCode.E))
         {
+            playingMinigame = true;
             activeMinigame.StartGame();
             state = StationState.PLAYINGMINIGAME;
         }
@@ -269,7 +272,7 @@ public class Workstation : MonoBehaviour
     {
         float brokenChance = 0.25f;
 
-        float rand = Random.Range(0, 1);
+        float rand = Random.Range(0f, 1f);
 
         if (rand <= brokenChance)
         {
