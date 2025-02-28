@@ -36,7 +36,7 @@ public class CookieClickerMinigame : MonoBehaviour, IMinigameBase
 
     int determineAmountOfCookies(int day)
     {
-        return Mathf.FloorToInt(Mathf.Lerp(minCookies, maxCookies, day / maxLevel));
+        return Mathf.FloorToInt(Mathf.Lerp(minCookies, maxCookies, Mathf.Clamp01(day / maxLevel)));
     }
 
     void GenerateCookies(int amount)
