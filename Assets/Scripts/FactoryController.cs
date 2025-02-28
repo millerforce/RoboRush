@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
+using NUnit.Framework.Internal;
+using UnityEngine.UI;
 
 public enum FactoryState
 {
@@ -17,7 +19,7 @@ public class FactoryController : MonoBehaviour
 {
     [SerializeField]
     private float _runMinutes;
-
+    public GameObject progBarPrefab;
     private const float _defaultRuntime = 2f;
 
     [SerializeField]
@@ -33,6 +35,11 @@ public class FactoryController : MonoBehaviour
 
     private FactoryState state;
 
+    public Material[] alertMaterials;
+
+
+
+    Color[] alertColors = { new Color(1, 0, 0), new Color(0.9924106f, 0, 1), new Color(0.66044f, 0, 1), new Color(0.04705951f, 0, 1), new Color(0, 0.7338469f, 1), new Color(0, 1, 0.6611695f), new Color(0, 1, 0), new Color(1, 0.9447687f, 0), new Color(1, 0.6415883f, 0), new Color(0.2578616f, 0.1661031f, 0.1224437f) };
     private GameObject[] foundStations;
     private List<Workstation> stations = new();
     private bool inEndlessMode;
@@ -51,12 +58,13 @@ public class FactoryController : MonoBehaviour
         state = FactoryState.STARTING;
 
         Invoke(nameof(FindStations), 0.5f);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch (state) 
+        switch (state)
         {
             case FactoryState.STARTING:
                 if (!player.StartAnimation())
@@ -92,7 +100,7 @@ public class FactoryController : MonoBehaviour
                 {
                     outSeconds = seconds.ToString();
                 }
-                    clock.clockText.text = outMinutes + ":" + outSeconds;
+                clock.clockText.text = outMinutes + ":" + outSeconds;
 
                 if (AllStationsDeleted())
                 {
@@ -129,11 +137,11 @@ public class FactoryController : MonoBehaviour
                 SceneManager.LoadScene("Endless");
 
                 break;
-        }   
+        }
     }
     bool AllStationsDeleted()
     {
-        foreach(Workstation station in stations)
+        foreach (Workstation station in stations)
         {
             if (station != null)
                 return false;
@@ -152,6 +160,37 @@ public class FactoryController : MonoBehaviour
             {
                 stations.Add(station);
             }
+        }
+        for (int i = 0; i < stations.Count; i++)
+        {
+
+            GameObject progressBarObj = Instantiate(progBarPrefab, new Vector3(2, 5, 10), Quaternion.identity);
+            progressBarObj.GetComponent<ProgressBarController>().workstation = stations[i];
+            // Find the child object
+            GameObject progressBarHolder = progressBarObj.transform.Find("ProgressBarHolder").gameObject;
+
+            RectTransform rectTransform = progressBarObj.transform.Find("ProgressBarHolder").GetComponent<RectTransform>();
+            // Set the global position
+            rectTransform.anchoredPosition = new Vector2(30 + i * 55, -5);
+            Transform alertChild = stations[i].transform.Find("alert");
+            Renderer childRenderer = alertChild.GetComponent<Renderer>();
+            childRenderer.material = alertMaterials[i];
+
+            GameObject progressBarBkgFill = progressBarHolder.transform.Find("BackgroundImage")?.gameObject;
+            if (progressBarBkgFill != null)
+            {
+                GameObject progressBarFill = progressBarBkgFill.transform.Find("FillImage")?.gameObject;
+                if (progressBarFill != null)
+                {
+                    Image fillImage = progressBarFill.GetComponent<Image>();
+                    if (fillImage != null)
+                    {
+                        fillImage.color = alertColors[i];
+                        Debug.Log("pleaste");
+                    }
+                }
+            }
+
         }
     }
 
