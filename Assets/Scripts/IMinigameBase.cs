@@ -5,4 +5,6 @@ public interface IMinigameBase
 {
     public bool GameFinished();
     public void StartGame();
+
+    public bool IsRunning();
 }

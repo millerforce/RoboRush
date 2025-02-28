@@ -28,6 +28,7 @@ public class BirthdayMinigameController : MonoBehaviour, IMinigameBase
     private float lastHintTime = LAST_HINT_DEFAULT;
 
     public bool gamecompleted = false;
+    private bool isActive = false;
 
     void Start() {
         // Initialize buttons and set up their click listeners
@@ -35,7 +36,6 @@ public class BirthdayMinigameController : MonoBehaviour, IMinigameBase
             button.onClick.AddListener(() => OnButtonClick(button));
         }
         minigameCanvas.SetActive(false); // Hide the minigame canvas initially
-        //minigameCanvas.SetActive(true);
     }
 
     void OnDisable() {
@@ -46,6 +46,7 @@ public class BirthdayMinigameController : MonoBehaviour, IMinigameBase
         // Show the minigame canvas when the player presses 'E'
         if (Input.GetKeyDown(KeyCode.E)) {
             minigameCanvas.SetActive(true);
+            isActive = true;
         }
 
         if (minigameCanvas.activeInHierarchy && (lastHintTime != -1f) && (Time.time - lastHintTime >= HINT_DEPLAY)) {
@@ -68,6 +69,7 @@ public class BirthdayMinigameController : MonoBehaviour, IMinigameBase
         switch (button.name) {
             case "ExitButton":
                 minigameCanvas.SetActive(false);
+                isActive = false;
                 break;
             case C_NOTE:
                 AudioManager.instance.PlaySFX("note_c");
@@ -124,22 +126,26 @@ public class BirthdayMinigameController : MonoBehaviour, IMinigameBase
         lastPressedButtons.Add(note);
 
         if (CORRECT_BUTTON_ORDER.Count == lastPressedButtons.Count && CORRECT_BUTTON_ORDER.SequenceEqual(lastPressedButtons)) {
-            // YOU WIN!!!
-            Debug.Log("You Won!!!");
 
             gamecompleted = true;
 
             minigameCanvas.SetActive(false);
+            isActive = false;
         }
     }
     public void StartGame()
     {
         minigameCanvas.SetActive(true);
+        isActive = true;
         Task.Delay(INITAL_DELAY);
         PlayHint();
     }
     public bool GameFinished()
     {
         return gamecompleted;
+    }
+    public bool IsRunning()
+    {
+        return isActive;
     }
 }
