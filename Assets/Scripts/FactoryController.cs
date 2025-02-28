@@ -124,6 +124,14 @@ public class FactoryController : MonoBehaviour
                 PlayerPrefs.SetInt("Day", 1);
                 PlayerPrefs.Save();
 
+                int highest = PlayerPrefs.GetInt("HighestDay", 1);
+                int dayg = PlayerPrefs.GetInt("Day", 1);
+                if (highest > dayg)
+                {
+                    PlayerPrefs.SetInt("HighestDay", highest);
+                    PlayerPrefs.Save();
+                }
+
                 SceneManager.LoadScene("BreakRoom");
 
                 break;
