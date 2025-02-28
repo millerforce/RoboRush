@@ -23,7 +23,7 @@ public class Workstation : MonoBehaviour
     private float _completionTime;//The amount of time the station needs to be in the working state to finish its task
 
     //[SerializeField]
-    private float _cooldownTime = 20f;//The time interval the station can break down on
+    private float _cooldownTime = 10f;//The time interval the station can break down on
 
     private float _timeCompleted;//The amount of time the workstation has been working on its task
 
@@ -240,8 +240,10 @@ public class Workstation : MonoBehaviour
 
         _breakdownChance += day * 0.05f;
 
-        _cooldownTime -= (day * 0.05f);
-        _cooldownTime = Random.Range(_cooldownTime - 6, _cooldownTime + 6);
+        float cooldownMin = _completionTime - (2 - (day * 0.05f));
+        float cooldownMax = _completionTime + (6 - (day * 0.05f));
+
+        _cooldownTime = Random.Range(cooldownMin, cooldownMax);
     }
 
     void TrySetParticles(bool flag)
