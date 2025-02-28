@@ -114,6 +114,7 @@ public class Workstation : MonoBehaviour
 
                 if (_timeCompleted >= _completionTime)
                 {
+                    AudioManager.instance.PlaySFX("blast_off");
                     state = StationState.FINISHED;
                 }
 
