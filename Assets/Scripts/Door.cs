@@ -25,7 +25,15 @@ public class Door : MonoBehaviour
                     PlayerPrefs.SetInt("Day", _dayToStart);
                     PlayerPrefs.Save();
                 }
-                
+
+                int highest = PlayerPrefs.GetInt("HighestDay", 1);
+                int day = PlayerPrefs.GetInt("Day", 1);
+                if (highest <= day)
+                {
+                    PlayerPrefs.SetInt("HighestDay", highest);
+                    PlayerPrefs.Save();
+                }
+
                 InteractionHintManager.instance.HideHint();
                 
                 StartCoroutine(GameObject.FindFirstObjectByType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, _levelToLoad));

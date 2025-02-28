@@ -172,6 +172,13 @@ public class Workstation : MonoBehaviour
                     TryAnimation(stationAnimator, brokenAnimation, false);
                     TryAnimation(robotAnimator, brokenAnimation, false);
                     TrySetParticles(true);
+
+                    int rand;
+                    if (minigames.Count > 0)
+                    {
+                        rand = Random.Range(0, minigames.Count);
+                        activeMinigame = minigames[rand];
+                    }
                 }
                 break;
 
@@ -291,7 +298,7 @@ public class Workstation : MonoBehaviour
 
     void PlayRandomSound()
     {
-        int rand = Random.Range(0, 7);
+        int rand = Random.Range(0, 6);
 
         AudioManager.instance.PlaySFX(brokeSFX[rand]);
     }
