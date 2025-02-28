@@ -100,6 +100,7 @@ public class PlayerController : MonoBehaviour
 
     public bool StartAnimation()
     {
+        DayDisplay.instance.ShowDayCanvas();
         if (!transform.position.Equals(_startLocation.position))
         {
             playerCollider.enabled = false;
