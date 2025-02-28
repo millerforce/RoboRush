@@ -15,9 +15,9 @@ public class BreakRoom : MonoBehaviour
     {
         starting = true;
 
-        string currentDay = PlayerPrefs.GetString("Day", "-1");
+        int currentDay = PlayerPrefs.GetInt("Day", 0);
         Debug.Log("Current Day:" + currentDay);
-        clipBoard.clipboardText.text = currentDay;
+        clipBoard.clipboardText.text = currentDay.ToString();
     }
 
     // Update is called once per frame

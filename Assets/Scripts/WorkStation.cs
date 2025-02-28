@@ -23,7 +23,7 @@ public class Workstation : MonoBehaviour
     private float _completionTime;//The amount of time the station needs to be in the working state to finish its task
 
     //[SerializeField]
-    private float _cooldownTime = 20f;//The time interval the station can break down on
+    private float _cooldownTime = 10f;//The time interval the station can break down on
 
     private float _timeCompleted;//The amount of time the workstation has been working on its task
 
@@ -39,7 +39,7 @@ public class Workstation : MonoBehaviour
     //[SerializeField]
     private float _attemptBreakDownInterval = 1f;
 
-    private static readonly float exitHeight = 20f;
+    private static readonly float exitHeight = 10f;
 
     private static readonly float takeoffSpeed = 5f;
 
@@ -49,6 +49,10 @@ public class Workstation : MonoBehaviour
 
     private const string brokenAnimation = "isBroken";
 
+    public bool playingMinigame = false;
+
+    public bool allowedToPlayMinigame = true;
+
     [SerializeField]
     Animator stationAnimator;
 
@@ -57,6 +61,8 @@ public class Workstation : MonoBehaviour
 
     [SerializeField]
     ParticleSystem stationEffect;
+
+    private string[] brokeSFX = { "bot_aaah_low", "bot_aaah", "bot_ack", "bot_off", "bot_sad", "bot_waoa" };
 
     private void Start()
     {
@@ -71,7 +77,9 @@ public class Workstation : MonoBehaviour
         TrySetParticles(true);
 
         takeoff.Stop();
-        state = StationState.WORKING;
+
+        ChanceStartState();
+
         _timeCompleted = 0f;
         _canBreak = false;
         _timeSinceBreakdown = 0f;
@@ -130,6 +138,7 @@ public class Workstation : MonoBehaviour
                             state = StationState.BROKEN;
                             _timeSinceAttemptedBreakdown = 0f;
                             _canBreak = false;
+                            PlayRandomSound();
                         }
                     }
                     _timeSinceAttemptedBreakdown += Time.deltaTime;
@@ -141,14 +150,22 @@ public class Workstation : MonoBehaviour
 
                 //Add logic for showing exclamation point
                 alert.SetActive(true);
+                
 
                 break;
 
             case StationState.PLAYINGMINIGAME:
                 //alert.SetActive(false);
 
+                if (!activeMinigame.IsRunning())
+                {
+                    playingMinigame = false;
+                    state = StationState.BROKEN;
+                }
+
                 if (activeMinigame.GameFinished())
                 {
+                    playingMinigame = false;
                     Debug.Log("Station has been fixed");
                     state = StationState.WORKING;
                     _timeSinceBreakdown = 0f;//reset cooldown timer
@@ -186,19 +203,25 @@ public class Workstation : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (!other.isTrigger && GetComponent<Collider>().isTrigger)
+        if (!allowedToPlayMinigame)
         {
-            if (other.CompareTag("Player") && state == StationState.BROKEN || state == StationState.PLAYINGMINIGAME)
-            {
-                Debug.Log("Player in active minigame trigger");
-                if (Input.GetKey(KeyCode.E))
-                {
-                    activeMinigame.StartGame();
-                    state = StationState.PLAYINGMINIGAME;
-                }
-            }
+            return;
         }
-
+        if (other.isTrigger || !GetComponent<Collider>().isTrigger)
+        {
+            return;
+        }
+        if (!other.CompareTag("Player") || state != StationState.BROKEN)
+        {
+            return;
+        }
+        Debug.Log("Player in active minigame trigger");
+        if (Input.GetKey(KeyCode.E))
+        {
+            playingMinigame = true;
+            activeMinigame.StartGame();
+            state = StationState.PLAYINGMINIGAME;
+        }
     }
 
     private void TryAnimation(Animator animator, string animation, bool flag)
@@ -211,14 +234,16 @@ public class Workstation : MonoBehaviour
 
     void SetDifficultyByDay(int day)
     {
-        float dayLength = 5 - (day * 0.05f);
+        float dayLength = 2 - (day * 0.05f);
 
         _completionTime = dayLength * 0.5f * 60;
 
         _breakdownChance += day * 0.05f;
 
-        _cooldownTime -= (day * 0.05f);
-        _cooldownTime = Random.Range(_cooldownTime - 3, _cooldownTime + 3);
+        float cooldownMin = _completionTime - (2 - (day * 0.05f));
+        float cooldownMax = _completionTime + (6 - (day * 0.05f));
+
+        _cooldownTime = Random.Range(cooldownMin, cooldownMax);
     }
 
     void TrySetParticles(bool flag)
@@ -246,5 +271,28 @@ public class Workstation : MonoBehaviour
     public float GetProgress()
     {
         return _timeCompleted / _completionTime;
+    }
+
+    void ChanceStartState()
+    {
+        float brokenChance = 0.25f;
+
+        float rand = Random.Range(0f, 1f);
+
+        if (rand <= brokenChance)
+        {
+            state = StationState.BROKEN;
+        }
+        else
+        {
+            state = StationState.WORKING;
+        }
+    }
+
+    void PlayRandomSound()
+    {
+        int rand = Random.Range(0, 7);
+
+        AudioManager.instance.PlaySFX(brokeSFX[rand]);
     }
 }

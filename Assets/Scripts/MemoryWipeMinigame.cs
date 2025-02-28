@@ -20,6 +20,19 @@ public class MemoryWipeMinigame : MonoBehaviour, IMinigameBase
     [SerializeField] int minLength;
     [SerializeField] int maxLevel;
 
+    public string[] passwordList =
+    {
+        "password",
+        "qwerty",
+        "abc123",
+        "iamhuman",
+        "teamleaderconnor",
+        "1234",
+        "12345"
+    };
+
+    private bool isActive = false;
+
     void Start()
     {
         int day = PlayerPrefs.GetInt("Day");
@@ -27,6 +40,7 @@ public class MemoryWipeMinigame : MonoBehaviour, IMinigameBase
 
         badAttemptField.gameObject.SetActive(false);
         minigameCanvas.SetActive(false); // Hide the minigame initially
+        isActive = false;
 
         inputField.onValueChanged.AddListener(onInputChanged);
         inputField.onEndEdit.AddListener(guessPassword);
@@ -38,13 +52,17 @@ public class MemoryWipeMinigame : MonoBehaviour, IMinigameBase
 
     int determinePasswordLength(int day)
     {
-        return Mathf.FloorToInt(Mathf.Lerp(minLength, maxLength, day / maxLevel));
+        return Mathf.FloorToInt(Mathf.Lerp(minLength, maxLength, Mathf.Clamp01(day / maxLevel)));
     }
 
     void generatePassword(int size)
     {
+        //get random number, assign passcode to passwordExamples[random]
+        //int passwordIndex = UnityEngine.Random.Range(0, passwordList.Length);
+        //passcode = passwordList[passwordIndex];
+
         passcode = "";
-        string abc = "abcdefghijklmnopqrstuvwxyz";
+        string abc = "abcdefghjkmnopqrstuvwxyz";
 
         for (int i = 0; i < size; i++)
         {
@@ -70,6 +88,8 @@ public class MemoryWipeMinigame : MonoBehaviour, IMinigameBase
         } else
         {
             badAttemptField.gameObject.SetActive(true);
+            inputField.Select();
+            inputField.ActivateInputField();
         }
 
         inputField.text = "";
@@ -78,6 +98,7 @@ public class MemoryWipeMinigame : MonoBehaviour, IMinigameBase
     void MinigameCompleted()
     {
         minigameCanvas.SetActive(false);
+        isActive = false;
         gamecompleted = true;
 
         int day = PlayerPrefs.GetInt("Day");
@@ -86,14 +107,20 @@ public class MemoryWipeMinigame : MonoBehaviour, IMinigameBase
 
     public void StartGame()
     {
-        Debug.Log("Started Game");
-
         minigameCanvas.SetActive(true);
+        isActive = true;
         gamecompleted = false;
+
+        inputField.Select();
+        inputField.ActivateInputField();
     }
 
     public bool GameFinished()
     {
         return gamecompleted;
+    }
+    public bool IsRunning()
+    {
+        return isActive;
     }
 }

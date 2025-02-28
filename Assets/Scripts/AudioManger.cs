@@ -54,6 +54,22 @@ public class AudioManager : MonoBehaviour {
         }
     }
 
+    public void PlayMusic()
+    {
+        this.currentSong = songs[1];
+        this.currentMusic = currentSong.sounds[0];
+        if (this.currentMusic == null)
+        {
+            Debug.LogWarning("Music: " + currentSong.sounds[0].name + " not found!");
+            return;
+        }
+        goalTime = AudioSettings.dspTime + 0.5;
+        _musicSources[1].clip = this.currentMusic.clip;
+        _musicSources[1].PlayScheduled(goalTime);
+        musicDuration = (double)this.currentMusic.clip.samples / this.currentMusic.clip.frequency;
+        goalTime = goalTime + musicDuration;
+    }
+
     public void PlayMusic(string name)
     {
         this.currentSong = Array.Find(songs, song => song.name == name);

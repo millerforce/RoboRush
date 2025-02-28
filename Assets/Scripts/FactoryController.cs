@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
-using NUnit.Framework.Internal;
+using System.Threading.Tasks;
 using UnityEngine.UI;
 
 public enum FactoryState
@@ -19,7 +19,7 @@ public class FactoryController : MonoBehaviour
 {
     [SerializeField]
     private float _runMinutes;
-    public GameObject progBarPrefab;
+
     private const float _defaultRuntime = 2f;
 
     [SerializeField]
@@ -35,14 +35,17 @@ public class FactoryController : MonoBehaviour
 
     private FactoryState state;
 
-    public Material[] alertMaterials;
-
-
-
-    Color[] alertColors = { new Color(1, 0, 0), new Color(0.9924106f, 0, 1), new Color(0.66044f, 0, 1), new Color(0.04705951f, 0, 1), new Color(0, 0.7338469f, 1), new Color(0, 1, 0.6611695f), new Color(0, 1, 0), new Color(1, 0.9447687f, 0), new Color(1, 0.6415883f, 0), new Color(0.2578616f, 0.1661031f, 0.1224437f) };
     private GameObject[] foundStations;
     private List<Workstation> stations = new();
-    private bool inEndlessMode;
+    private bool inEndlessMode = false;
+
+    public Material[] alertMaterials;
+
+    public GameObject progBarPrefab;
+
+    Color[] alertColors = { new Color(1, 0, 0), new Color(0.9924106f, 0, 1), new Color(0.66044f, 0, 1), new Color(0.04705951f, 0, 1), new Color(0, 0.7338469f, 1), new Color(0, 1, 0.6611695f), new Color(0, 1, 0), new Color(1, 0.9447687f, 0), new Color(1, 0.6415883f, 0), new Color(0.2578616f, 0.1661031f, 0.1224437f) };
+
+    private bool isAMinigameRunning = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -52,13 +55,14 @@ public class FactoryController : MonoBehaviour
 
         SetDifficultyByDay(day);
 
-        inEndlessMode = PlayerPrefs.GetInt("Endless") == 1 ? true : false;
+        inEndlessMode = PlayerPrefs.GetInt("Endless") == 1;
 
         _timeRemaining = _runMinutes * 60;
         state = FactoryState.STARTING;
 
         Invoke(nameof(FindStations), 0.5f);
-
+        Task.Delay(4000);
+        DayDisplay.instance.ShowDayCanvas();
     }
 
     // Update is called once per frame
@@ -114,6 +118,8 @@ public class FactoryController : MonoBehaviour
                     }
                 }
 
+                IsAnyMinigameRunning();
+
                 if (_timeRemaining <= 0)
                 {
                     //Display failure message maybe?
@@ -124,6 +130,17 @@ public class FactoryController : MonoBehaviour
                 break;
 
             case FactoryState.FAILED:
+
+                PlayerPrefs.SetInt("Day", 1);
+                PlayerPrefs.Save();
+
+                int highest = PlayerPrefs.GetInt("HighestDay", 1);
+                int dayg = PlayerPrefs.GetInt("Day", 1);
+                if (highest > dayg)
+                {
+                    PlayerPrefs.SetInt("HighestDay", highest);
+                    PlayerPrefs.Save();
+                }
 
                 SceneManager.LoadScene("BreakRoom");
 
@@ -161,6 +178,7 @@ public class FactoryController : MonoBehaviour
                 stations.Add(station);
             }
         }
+
         for (int i = 0; i < stations.Count; i++)
         {
 
@@ -192,6 +210,31 @@ public class FactoryController : MonoBehaviour
             }
 
         }
+    }
+
+    bool IsAnyMinigameRunning()
+    {
+        foreach (Workstation workstation in stations)
+        {
+            if (workstation.playingMinigame)
+            {
+                foreach (Workstation station in stations)
+                {
+                    if (!station.playingMinigame)
+                    {
+                        station.allowedToPlayMinigame = false;
+                    }
+                }
+                return true;
+            }
+        }
+
+        foreach (Workstation station in stations)
+        {
+            station.allowedToPlayMinigame = true;
+        }
+
+        return false;
     }
 
     void SetDifficultyByDay(int day)

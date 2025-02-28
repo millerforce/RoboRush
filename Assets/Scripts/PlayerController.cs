@@ -16,10 +16,13 @@ public class PlayerController : MonoBehaviour
     public float WalkSpeed = 2f;
 
     [SerializeField]
-    public float SprintSpeed = 3f;
+    public float SprintSpeed = 4f;
 
     [SerializeField]
     private Transform _startLocation;
+
+    [SerializeField]
+    private Collider playerCollider;
 
     private Animator animator;
 
@@ -97,8 +100,11 @@ public class PlayerController : MonoBehaviour
 
     public bool StartAnimation()
     {
+        DayDisplay.instance.ShowDayCanvas();
+
         if (!transform.position.Equals(_startLocation.position))
         {
+            playerCollider.enabled = false;
             state = PlayerState.STARTING;
             animator.SetBool("isWalking", true);
             transform.position = Vector3.MoveTowards(transform.position, _startLocation.position, WalkSpeed * Time.deltaTime);
@@ -109,6 +115,7 @@ public class PlayerController : MonoBehaviour
         {
             state = PlayerState.IDLE;
             animator.SetBool("isWalking", false);
+            playerCollider.enabled = true;
             return false;
         }
     }

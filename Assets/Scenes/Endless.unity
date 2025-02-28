@@ -293,6 +293,7 @@ MonoBehaviour:
   - {fileID: 2425217618630506031, guid: 4793034e33269d64cab54e528085eb17, type: 3}
   obstacles:
   - {fileID: 657557237818285758, guid: 60712dbd5aede484d95166a444dbcb10, type: 3}
+  - {fileID: 3383689119915519687, guid: 3d2bb58ebcd0aca49bb77979ab4b365c, type: 3}
   numberOfObstacles: 6
 --- !u!4 &392584839 stripped
 Transform:
