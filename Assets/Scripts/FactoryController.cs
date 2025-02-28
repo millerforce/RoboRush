@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 public enum FactoryState
 {
@@ -53,6 +54,8 @@ public class FactoryController : MonoBehaviour
         state = FactoryState.STARTING;
 
         Invoke(nameof(FindStations), 0.5f);
+        Task.Delay(4000);
+        DayDisplay.instance.ShowDayCanvas();
     }
 
     // Update is called once per frame
