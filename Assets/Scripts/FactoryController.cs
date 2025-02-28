@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
+using UnityEngine.UI;
+using System.Threading.Tasks;
 
 public enum FactoryState
 {
@@ -67,7 +69,7 @@ public class FactoryController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (state) 
+        switch (state)
         {
             case FactoryState.STARTING:
                 if (!player.StartAnimation())
@@ -103,7 +105,7 @@ public class FactoryController : MonoBehaviour
                 {
                     outSeconds = seconds.ToString();
                 }
-                    clock.clockText.text = outMinutes + ":" + outSeconds;
+                clock.clockText.text = outMinutes + ":" + outSeconds;
 
                 if (AllStationsDeleted())
                 {
@@ -153,11 +155,11 @@ public class FactoryController : MonoBehaviour
                 SceneManager.LoadScene("Endless");
 
                 break;
-        }   
+        }
     }
     bool AllStationsDeleted()
     {
-        foreach(Workstation station in stations)
+        foreach (Workstation station in stations)
         {
             if (station != null)
                 return false;
@@ -177,15 +179,47 @@ public class FactoryController : MonoBehaviour
                 stations.Add(station);
             }
         }
+
+        for (int i = 0; i < stations.Count; i++)
+        {
+
+            GameObject progressBarObj = Instantiate(progBarPrefab, new Vector3(2, 5, 10), Quaternion.identity);
+            progressBarObj.GetComponent<ProgressBarController>().workstation = stations[i];
+            // Find the child object
+            GameObject progressBarHolder = progressBarObj.transform.Find("ProgressBarHolder").gameObject;
+
+            RectTransform rectTransform = progressBarObj.transform.Find("ProgressBarHolder").GetComponent<RectTransform>();
+            // Set the global position
+            rectTransform.anchoredPosition = new Vector2(30 + i * 55, -5);
+            Transform alertChild = stations[i].transform.Find("alert");
+            Renderer childRenderer = alertChild.GetComponent<Renderer>();
+            childRenderer.material = alertMaterials[i];
+
+            GameObject progressBarBkgFill = progressBarHolder.transform.Find("BackgroundImage")?.gameObject;
+            if (progressBarBkgFill != null)
+            {
+                GameObject progressBarFill = progressBarBkgFill.transform.Find("FillImage")?.gameObject;
+                if (progressBarFill != null)
+                {
+                    Image fillImage = progressBarFill.GetComponent<Image>();
+                    if (fillImage != null)
+                    {
+                        fillImage.color = alertColors[i];
+                        Debug.Log("pleaste");
+                    }
+                }
+            }
+
+        }
     }
 
     void IsAnyMinigameRunning()
     {
-        foreach(Workstation workstation in stations)
+        foreach (Workstation workstation in stations)
         {
             if (workstation.playingMinigame)
             {
-                foreach(Workstation station in stations)
+                foreach (Workstation station in stations)
                 {
                     if (!station.playingMinigame)
                     {
@@ -196,7 +230,7 @@ public class FactoryController : MonoBehaviour
             }
         }
 
-        foreach(Workstation station in stations)
+        foreach (Workstation station in stations)
         {
             station.allowedToPlayMinigame = true;
         }
