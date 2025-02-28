@@ -238,7 +238,7 @@ public class Workstation : MonoBehaviour
         _breakdownChance += day * 0.05f;
 
         _cooldownTime -= (day * 0.05f);
-        _cooldownTime = Random.Range(_cooldownTime - 3, _cooldownTime + 3);
+        _cooldownTime = Random.Range(_cooldownTime - 6, _cooldownTime + 6);
     }
 
     void TrySetParticles(bool flag)
