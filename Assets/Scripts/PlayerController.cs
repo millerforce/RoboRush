@@ -21,6 +21,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Transform _startLocation;
 
+    [SerializeField]
+    private Collider playerCollider;
+
     private Animator animator;
 
     private Vector3 _moveDirection;
@@ -99,6 +102,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!transform.position.Equals(_startLocation.position))
         {
+            playerCollider.enabled = false;
             state = PlayerState.STARTING;
             animator.SetBool("isWalking", true);
             transform.position = Vector3.MoveTowards(transform.position, _startLocation.position, WalkSpeed * Time.deltaTime);
@@ -109,6 +113,7 @@ public class PlayerController : MonoBehaviour
         {
             state = PlayerState.IDLE;
             animator.SetBool("isWalking", false);
+            playerCollider.enabled = true;
             return false;
         }
     }

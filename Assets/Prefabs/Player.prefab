@@ -131,10 +131,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb8210306d5995345839892d11348c26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WalkSpeed: 2
-  SprintSpeed: 3
+  WalkSpeed: 2.5
+  SprintSpeed: 4
   _startLocation: {fileID: 0}
+  playerCollider: {fileID: 2311156781944033513}
   rotationSpeed: 5
+  isPlayingMinigame: 0
 --- !u!54 &166440563613118322
 Rigidbody:
   m_ObjectHideFlags: 0
