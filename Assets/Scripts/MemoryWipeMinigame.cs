@@ -58,18 +58,18 @@ public class MemoryWipeMinigame : MonoBehaviour, IMinigameBase
     void generatePassword(int size)
     {
         //get random number, assign passcode to passwordExamples[random]
-        int passwordIndex = UnityEngine.Random.Range(0, passwordList.Length);
-        passcode = passwordList[passwordIndex];
-        
-        //string abc = "abcdefghijklmnopqrstuvwxyz";
+        //int passwordIndex = UnityEngine.Random.Range(0, passwordList.Length);
+        //passcode = passwordList[passwordIndex];
 
-        //for (int i = 0; i < size; i++)
-        //{
-        //    int randIndex = UnityEngine.Random.Range(0, abc.Length);
+        string abc = "abcdefghjkmnopqrstuvwxyz";
 
-        //    if (UnityEngine.Random.Range(0, 2) == 0) passcode += abc[randIndex];
-        //    else passcode += Char.ToUpper(abc[randIndex]);
-        //}
+        for (int i = 0; i < size; i++)
+        {
+            int randIndex = UnityEngine.Random.Range(0, abc.Length);
+
+            if (UnityEngine.Random.Range(0, 2) == 0) passcode += abc[randIndex];
+            else passcode += Char.ToUpper(abc[randIndex]);
+        }
 
         hintTextField.text = "HINT: " + passcode;
     }
@@ -87,6 +87,8 @@ public class MemoryWipeMinigame : MonoBehaviour, IMinigameBase
         } else
         {
             badAttemptField.gameObject.SetActive(true);
+            inputField.Select();
+            inputField.ActivateInputField();
         }
 
         inputField.text = "";
@@ -104,11 +106,12 @@ public class MemoryWipeMinigame : MonoBehaviour, IMinigameBase
 
     public void StartGame()
     {
-        Debug.Log("Started Game");
-
         minigameCanvas.SetActive(true);
         isActive = true;
         gamecompleted = false;
+
+        inputField.Select();
+        inputField.ActivateInputField();
     }
 
     public bool GameFinished()
