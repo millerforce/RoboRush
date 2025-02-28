@@ -50,6 +50,10 @@ public class Workstation : MonoBehaviour
 
     private const string brokenAnimation = "isBroken";
 
+    public bool playingMinigame = false;
+
+    public bool allowedToPlayMinigame = true;
+
     [SerializeField]
     Animator stationAnimator;
 
@@ -72,7 +76,9 @@ public class Workstation : MonoBehaviour
         TrySetParticles(true);
 
         takeoff.Stop();
-        state = StationState.WORKING;
+
+        ChanceStartState();
+
         _timeCompleted = 0f;
         _canBreak = false;
         _timeSinceBreakdown = 0f;
@@ -128,11 +134,17 @@ public class Workstation : MonoBehaviour
 
                 //Add logic for showing exclamation point
                 alert.SetActive(true);
+                playingMinigame = true;
 
                 break;
 
             case StationState.PLAYINGMINIGAME:
                 //alert.SetActive(false);
+
+                if (!activeMinigame.IsGameRunning())
+                {
+                    state = StationState.BROKEN;
+                }
 
                 if (activeMinigame.GameFinished())
                 {
@@ -173,19 +185,21 @@ public class Workstation : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (!other.isTrigger && GetComponent<Collider>().isTrigger)
+        if (allowedToPlayMinigame)
         {
-            if (other.CompareTag("Player") && state == StationState.BROKEN || state == StationState.PLAYINGMINIGAME)
+            if (!other.isTrigger && GetComponent<Collider>().isTrigger)
             {
-                Debug.Log("Player in active minigame trigger");
-            if (Input.GetKey(KeyCode.E))
-            {
-                activeMinigame.StartGame();
-                state = StationState.PLAYINGMINIGAME;
+                if (other.CompareTag("Player") && state == StationState.BROKEN)
+                {
+                    Debug.Log("Player in active minigame trigger");
+                    if (Input.GetKey(KeyCode.E))
+                    {
+                        activeMinigame.StartGame();
+                        state = StationState.PLAYINGMINIGAME;
+                    }
+                }
             }
         }
-        }
-        
     }
 
     private void TryAnimation(Animator animator, string animation, bool flag)
@@ -247,6 +261,22 @@ public class Workstation : MonoBehaviour
         {
             rand = Random.Range(0, minigames.Count);
             activeMinigame = minigames[rand];
+        }
+    }
+
+    void ChanceStartState()
+    {
+        float brokenChance = 0.25f;
+
+        float rand = Random.Range(0, 1);
+
+        if (rand <= brokenChance)
+        {
+            state = StationState.BROKEN;
+        }
+        else
+        {
+            state = StationState.WORKING;
         }
     }
 }

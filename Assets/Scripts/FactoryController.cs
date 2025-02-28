@@ -35,7 +35,9 @@ public class FactoryController : MonoBehaviour
 
     private GameObject[] foundStations;
     private List<Workstation> stations = new();
-    private bool inEndlessMode;
+    private bool inEndlessMode = false;
+
+    private bool isAMinigameRunning = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -45,7 +47,7 @@ public class FactoryController : MonoBehaviour
 
         SetDifficultyByDay(day);
 
-        inEndlessMode = PlayerPrefs.GetInt("Endless") == 1 ? true : false;
+        inEndlessMode = PlayerPrefs.GetInt("Endless") == 1;
 
         _timeRemaining = _runMinutes * 60;
         state = FactoryState.STARTING;
@@ -106,6 +108,8 @@ public class FactoryController : MonoBehaviour
                     }
                 }
 
+                IsAnyMinigameRunning();
+
                 if (_timeRemaining <= 0)
                 {
                     //Display failure message maybe?
@@ -153,6 +157,31 @@ public class FactoryController : MonoBehaviour
                 stations.Add(station);
             }
         }
+    }
+
+    bool IsAnyMinigameRunning()
+    {
+        foreach(Workstation workstation in stations)
+        {
+            if (workstation.playingMinigame)
+            {
+                foreach(Workstation station in stations)
+                {
+                    if (!station.playingMinigame)
+                    {
+                        station.allowedToPlayMinigame = false;
+                    }
+                }
+                return true;
+            }
+        }
+
+        foreach(Workstation station in stations)
+        {
+            station.allowedToPlayMinigame = true;
+        }
+
+        return false;
     }
 
     void SetDifficultyByDay(int day)
