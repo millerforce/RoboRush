@@ -240,8 +240,8 @@ public class Workstation : MonoBehaviour
 
         _breakdownChance += day * 0.05f;
 
-        float cooldownMin = _completionTime - (2 - (day * 0.05f));
-        float cooldownMax = _completionTime + (6 - (day * 0.05f));
+        float cooldownMin = _cooldownTime - (2 - (day * 0.05f));
+        float cooldownMax = _cooldownTime + (6 - (day * 0.05f));
 
         _cooldownTime = Random.Range(cooldownMin, cooldownMax);
     }

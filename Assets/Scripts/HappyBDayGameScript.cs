@@ -41,6 +41,7 @@ public class BirthdayMinigameController : MonoBehaviour, IMinigameBase
 
     void OnDisable() {
         lastHintTime = LAST_HINT_DEFAULT;
+        isActive = false;
     }
 
     void Update() {
@@ -52,6 +53,11 @@ public class BirthdayMinigameController : MonoBehaviour, IMinigameBase
 
         if (minigameCanvas.activeInHierarchy && (lastHintTime != -1f) && (Time.time - lastHintTime >= HINT_DEPLAY)) {
             PlayHint();
+        }
+
+        if (!minigameCanvas.activeSelf)
+        {
+            isActive = false;
         }
     }
 

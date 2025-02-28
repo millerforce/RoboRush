@@ -34,6 +34,19 @@ public class CookieClickerMinigame : MonoBehaviour, IMinigameBase
         isActive = false;
     }
 
+    void Update()
+    {
+        if (!minigameCanvas.activeSelf)
+        {
+            isActive = false;
+        }
+    }
+
+    void OnDisable()
+    {
+        isActive = false;
+    }
+
     int determineAmountOfCookies(int day)
     {
         return Mathf.FloorToInt(Mathf.Lerp(minCookies, maxCookies, Mathf.Clamp01(day / maxLevel)));

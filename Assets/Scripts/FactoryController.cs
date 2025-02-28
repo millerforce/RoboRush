@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using System;
 using TMPro;
 using UnityEngine;
@@ -38,8 +39,6 @@ public class FactoryController : MonoBehaviour
     private List<Workstation> stations = new();
     private bool inEndlessMode = false;
 
-    private bool isAMinigameRunning = false;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -54,8 +53,15 @@ public class FactoryController : MonoBehaviour
         state = FactoryState.STARTING;
 
         Invoke(nameof(FindStations), 0.5f);
-        Task.Delay(4000);
-        DayDisplay.instance.ShowDayCanvas();
+        StartCoroutine(
+                DisplayTheDay());
+    }
+
+    IEnumerator DisplayTheDay()
+    {
+        yield return new WaitForSeconds(1);
+        
+        StartCoroutine(DayDisplay.instance.ShowDayCanvas());
     }
 
     // Update is called once per frame
@@ -173,7 +179,7 @@ public class FactoryController : MonoBehaviour
         }
     }
 
-    bool IsAnyMinigameRunning()
+    void IsAnyMinigameRunning()
     {
         foreach(Workstation workstation in stations)
         {
@@ -186,7 +192,7 @@ public class FactoryController : MonoBehaviour
                         station.allowedToPlayMinigame = false;
                     }
                 }
-                return true;
+                return;
             }
         }
 
@@ -194,8 +200,6 @@ public class FactoryController : MonoBehaviour
         {
             station.allowedToPlayMinigame = true;
         }
-
-        return false;
     }
 
     void SetDifficultyByDay(int day)
