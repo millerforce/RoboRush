@@ -30,7 +30,7 @@ public class Door : MonoBehaviour
                 int day = PlayerPrefs.GetInt("Day", 1);
                 if (highest <= day)
                 {
-                    PlayerPrefs.SetInt("HighestDay", highest);
+                    PlayerPrefs.SetInt("HighestDay", day);
                     PlayerPrefs.Save();
                 }
 

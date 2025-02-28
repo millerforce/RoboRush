@@ -147,7 +147,7 @@ public class FactoryController : MonoBehaviour
                 int dayg = PlayerPrefs.GetInt("Day", 1);
                 if (highest <= dayg)
                 {
-                    PlayerPrefs.SetInt("HighestDay", highest);
+                    PlayerPrefs.SetInt("HighestDay", dayg);
                     PlayerPrefs.Save();
                 }
 
@@ -160,7 +160,7 @@ public class FactoryController : MonoBehaviour
                 int daygf = PlayerPrefs.GetInt("Day", 1);
                 if (highestf <= daygf)
                 {
-                    PlayerPrefs.SetInt("HighestDay", highestf);
+                    PlayerPrefs.SetInt("HighestDay", daygf);
                     PlayerPrefs.Save();
                 }
 
