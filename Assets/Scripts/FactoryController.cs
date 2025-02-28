@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using System;
 using TMPro;
 using UnityEngine;
@@ -40,14 +41,6 @@ public class FactoryController : MonoBehaviour
     private List<Workstation> stations = new();
     private bool inEndlessMode = false;
 
-    private bool isAMinigameRunning = false;
-
-    public Material[] alertMaterials;
-
-    public GameObject progBarPrefab;
-
-    Color[] alertColors = { new Color(1, 0, 0), new Color(0.9924106f, 0, 1), new Color(0.66044f, 0, 1), new Color(0.04705951f, 0, 1), new Color(0, 0.7338469f, 1), new Color(0, 1, 0.6611695f), new Color(0, 1, 0), new Color(1, 0.9447687f, 0), new Color(1, 0.6415883f, 0), new Color(0.2578616f, 0.1661031f, 0.1224437f) };
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -62,8 +55,15 @@ public class FactoryController : MonoBehaviour
         state = FactoryState.STARTING;
 
         Invoke(nameof(FindStations), 0.5f);
-        Task.Delay(4000);
-        DayDisplay.instance.ShowDayCanvas();
+        StartCoroutine(
+                DisplayTheDay());
+    }
+
+    IEnumerator DisplayTheDay()
+    {
+        yield return new WaitForSeconds(1);
+        
+        StartCoroutine(DayDisplay.instance.ShowDayCanvas());
     }
 
     // Update is called once per frame
@@ -190,7 +190,7 @@ public class FactoryController : MonoBehaviour
 
             RectTransform rectTransform = progressBarObj.transform.Find("ProgressBarHolder").GetComponent<RectTransform>();
             // Set the global position
-            rectTransform.anchoredPosition = new Vector2(30 + i * 55, -5);
+            rectTransform.anchoredPosition = new Vector2(30 + i * 55, -10);
             Transform alertChild = stations[i].transform.Find("alert");
             Renderer childRenderer = alertChild.GetComponent<Renderer>();
             childRenderer.material = alertMaterials[i];
@@ -213,7 +213,7 @@ public class FactoryController : MonoBehaviour
         }
     }
 
-    bool IsAnyMinigameRunning()
+    void IsAnyMinigameRunning()
     {
         foreach (Workstation workstation in stations)
         {
@@ -226,7 +226,7 @@ public class FactoryController : MonoBehaviour
                         station.allowedToPlayMinigame = false;
                     }
                 }
-                return true;
+                return;
             }
         }
 
@@ -234,8 +234,6 @@ public class FactoryController : MonoBehaviour
         {
             station.allowedToPlayMinigame = true;
         }
-
-        return false;
     }
 
     void SetDifficultyByDay(int day)

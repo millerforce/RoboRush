@@ -47,7 +47,15 @@ public class MemoryWipeMinigame : MonoBehaviour, IMinigameBase
     }
     void Update()
     {
+        if (!minigameCanvas.activeSelf)
+        {
+            isActive = false;
+        }
+    }
 
+    void OnDisable()
+    {
+        isActive = false;
     }
 
     int determinePasswordLength(int day)
