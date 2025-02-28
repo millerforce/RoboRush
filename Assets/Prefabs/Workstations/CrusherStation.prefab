@@ -300,6 +300,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   takeoff: {fileID: 6485439690499599894}
   alert: {fileID: 4230087093086200073}
+  playingMinigame: 0
+  allowedToPlayMinigame: 1
   stationAnimator: {fileID: 838412580948332414}
   robotAnimator: {fileID: 6328555730106656178}
   stationEffect: {fileID: 3777124708049648516}
@@ -551,7 +553,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 524624309722161462, guid: 3e6392468df380649800b60782da38be, type: 3}
       propertyPath: m_Text
-      value: Hello World
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 524624309722161462, guid: 3e6392468df380649800b60782da38be, type: 3}
       propertyPath: m_Transition
@@ -559,11 +561,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 918188187142528973, guid: 3e6392468df380649800b60782da38be, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6064620665223615773, guid: 3e6392468df380649800b60782da38be, type: 3}
       propertyPath: m_text
-      value: "Hello World\u200B"
+      value: "\u200B"
       objectReference: {fileID: 0}
     - target: {fileID: 6713950074492491504, guid: 3e6392468df380649800b60782da38be, type: 3}
       propertyPath: m_Pivot.x

@@ -36,6 +36,7 @@ public class BirthdayMinigameController : MonoBehaviour, IMinigameBase
             button.onClick.AddListener(() => OnButtonClick(button));
         }
         minigameCanvas.SetActive(false); // Hide the minigame canvas initially
+        isActive = false;
     }
 
     void OnDisable() {

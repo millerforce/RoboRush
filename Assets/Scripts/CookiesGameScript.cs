@@ -31,6 +31,7 @@ public class CookieClickerMinigame : MonoBehaviour, IMinigameBase
 
         GenerateCookies(determineAmountOfCookies(day));
         minigameCanvas.SetActive(false); // Hide the minigame initially
+        isActive = false;
     }
 
     int determineAmountOfCookies(int day)
