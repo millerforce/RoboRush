@@ -254,6 +254,16 @@ public class FactoryController : MonoBehaviour
 
     void SetDifficultyByDay(int day)
     {
-        _runMinutes = _defaultRuntime - day * 0.05f;
+        float newTime = _defaultRuntime - day * 0.05f;
+
+        if (newTime < 1f)
+        {
+            _runMinutes = 1f;
+        }
+        else
+        {
+            _runMinutes = newTime;
+        }
+        
     }
 }

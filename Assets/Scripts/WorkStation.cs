@@ -242,8 +242,16 @@ public class Workstation : MonoBehaviour
 
     void SetDifficultyByDay(int day)
     {
-        float dayLength = 2 - (day * 0.05f);
-
+        float newTime = 2 - day * 0.05f;
+        float dayLength;
+        if (newTime < 1f)
+        {
+            dayLength = 1f;
+        }
+        else
+        {
+            dayLength = newTime;
+        }
         _completionTime = dayLength * 0.5f * 60;
 
         _breakdownChance += day * 0.05f;
