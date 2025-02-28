@@ -13,7 +13,7 @@ public class AudioManager : MonoBehaviour {
     public AudioSource sfxSource;
     public AudioSource ambientSource;
     public bool playAmbient = false;
-    public bool playMusic = false;
+    public bool playMusic = true;
     public Song[] songs;
 
     public Sound currentMusic;
@@ -183,7 +183,10 @@ public class AudioManager : MonoBehaviour {
     }
 
     public void StopMusic() {
-        _musicSources[musicSourceIndex].Stop();
+        foreach (var source in _musicSources)
+        {
+            source.Stop();
+        }
     }
 
 

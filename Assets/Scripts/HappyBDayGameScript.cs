@@ -135,7 +135,9 @@ public class BirthdayMinigameController : MonoBehaviour, IMinigameBase
 
         if (CORRECT_BUTTON_ORDER.Count == lastPressedButtons.Count && CORRECT_BUTTON_ORDER.SequenceEqual(lastPressedButtons)) {
 
-            //AudioManager.instance.Start();
+            AudioManager.instance.playMusic = true;
+            AudioManager.instance.PlayMusic();
+
 
             gamecompleted = true;
 
@@ -146,6 +148,7 @@ public class BirthdayMinigameController : MonoBehaviour, IMinigameBase
     public void StartGame()
     {
         AudioManager.instance.StopMusic();
+        AudioManager.instance.playMusic = false;
         minigameCanvas.SetActive(true);
         isActive = true;
         Task.Delay(INITAL_DELAY);

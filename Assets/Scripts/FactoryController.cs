@@ -156,6 +156,14 @@ public class FactoryController : MonoBehaviour
                 break;
 
             case FactoryState.NEXTDAY:
+                int highestf = PlayerPrefs.GetInt("HighestDay", 1);
+                int daygf = PlayerPrefs.GetInt("Day", 1);
+                if (highestf > daygf)
+                {
+                    PlayerPrefs.SetInt("HighestDay", highestf);
+                    PlayerPrefs.Save();
+                }
+
                 int day = PlayerPrefs.GetInt("Day", 1);
                 PlayerPrefs.SetInt("Day", ++day);
                 PlayerPrefs.Save();

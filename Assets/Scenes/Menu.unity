@@ -1036,8 +1036,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2706652274619746866, guid: de4cde82273dc6b409ca0ddf01af7e9d, type: 3}
-      propertyPath: playAmbient
+      propertyPath: playMusic
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2706652274619746866, guid: de4cde82273dc6b409ca0ddf01af7e9d, type: 3}
+      propertyPath: playAmbient
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2706652274619746866, guid: de4cde82273dc6b409ca0ddf01af7e9d, type: 3}
       propertyPath: ambientSource
