@@ -19,16 +19,13 @@ public class Workstation : MonoBehaviour
 
     private StationState state;
 
-    //[SerializeField]
     private float _completionTime;//The amount of time the station needs to be in the working state to finish its task
 
-    //[SerializeField]
-    private float _cooldownTime = 10f;//The time interval the station can break down on
+    private float _cooldownTime = 15f;//The time interval the station can break down on
 
     private float _timeCompleted;//The amount of time the workstation has been working on its task
 
-    //[SerializeField]
-    private float _breakdownChance = 0.1f;//The probability each frame outside the cooldown that the work station will breakdown
+    private float _breakdownChance = 0.05f;//The probability each frame outside the cooldown that the work station will breakdown
 
     private float _timeSinceBreakdown = 0;//Tracking how long it has been since the last breakdown
 
@@ -36,12 +33,11 @@ public class Workstation : MonoBehaviour
 
     private float _timeSinceAttemptedBreakdown;//The time since we last tried to enter the broke state
 
-    //[SerializeField]
-    private float _attemptBreakDownInterval = 1f;
+    private float _attemptBreakDownInterval = 2f;
 
     private static readonly float exitHeight = 10f;
 
-    private static readonly float takeoffSpeed = 5f;
+    private static readonly float takeoffSpeed = 6f;
 
     private List<IMinigameBase> minigames = new();
 
@@ -93,13 +89,7 @@ public class Workstation : MonoBehaviour
             }
         }
 
-        int rand;
-        if (minigames.Count > 0)
-        {
-            rand = Random.Range(0, minigames.Count);
-            activeMinigame = minigames[rand];
-        }
-
+        RandomizeMinigame();
     }
 
     private void Update()
@@ -131,15 +121,7 @@ public class Workstation : MonoBehaviour
 
                         if (randValue <= _breakdownChance)
                         {
-                            Debug.Log("Station has broke down");
-                            TryAnimation(stationAnimator, brokenAnimation, true);
-                            TryAnimation(robotAnimator, brokenAnimation, true);
-                            TrySetParticles(false);
-
-                            state = StationState.BROKEN;
-                            _timeSinceAttemptedBreakdown = 0f;
-                            _canBreak = false;
-                            PlayRandomSound();
+                            TransitionToBroken();
                         }
                     }
                     _timeSinceAttemptedBreakdown += Time.deltaTime;
@@ -174,12 +156,7 @@ public class Workstation : MonoBehaviour
                     TryAnimation(robotAnimator, brokenAnimation, false);
                     TrySetParticles(true);
 
-                    int rand;
-                    if (minigames.Count > 0)
-                    {
-                        rand = Random.Range(0, minigames.Count);
-                        activeMinigame = minigames[rand];
-                    }
+                    RandomizeMinigame();
                 }
                 break;
 
@@ -254,10 +231,10 @@ public class Workstation : MonoBehaviour
         }
         _completionTime = dayLength * 0.5f * 60;
 
-        _breakdownChance += day * 0.05f;
+        _breakdownChance += day * 0.02f;
 
-        float cooldownMin = _cooldownTime - (2 - (day * 0.05f));
-        float cooldownMax = _cooldownTime + (6 - (day * 0.05f));
+        float cooldownMin = _cooldownTime - (5 + (day * 0.05f));
+        float cooldownMax = _cooldownTime + (5 + (day * 0.05f));
 
         _cooldownTime = Random.Range(cooldownMin, cooldownMax);
     }
@@ -291,13 +268,13 @@ public class Workstation : MonoBehaviour
 
     void ChanceStartState()
     {
-        float brokenChance = 0.25f;
+        float brokenChance = 0.30f;
 
         float rand = Random.Range(0f, 1f);
 
         if (rand <= brokenChance)
         {
-            state = StationState.BROKEN;
+            TransitionToBroken();
         }
         else
         {
@@ -310,5 +287,28 @@ public class Workstation : MonoBehaviour
         int rand = Random.Range(0, 6);
 
         AudioManager.instance.PlaySFX(brokeSFX[rand]);
+    }
+
+    void TransitionToBroken()
+    {
+        Debug.Log("Station has broke down");
+        TryAnimation(stationAnimator, brokenAnimation, true);
+        TryAnimation(robotAnimator, brokenAnimation, true);
+        TrySetParticles(false);
+
+        state = StationState.BROKEN;
+        _timeSinceAttemptedBreakdown = 0f;
+        _canBreak = false;
+        PlayRandomSound();
+    }
+
+    void RandomizeMinigame()
+    {
+        int rand;
+        if (minigames.Count > 0)
+        {
+            rand = Random.Range(0, minigames.Count);
+            activeMinigame = minigames[rand];
+        }
     }
 }

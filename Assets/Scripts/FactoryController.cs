@@ -1,13 +1,8 @@
 using System.Collections.Generic;
 using System.Collections;
-using System;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using UnityEngine.SceneManagement;
-using System.Threading.Tasks;
 using UnityEngine.UI;
-using System.Threading.Tasks;
 
 public enum FactoryState
 {
@@ -25,7 +20,7 @@ public class FactoryController : MonoBehaviour
     private const float _defaultRuntime = 2f;
 
     [SerializeField]
-    Clock clock;
+    private Timer timer;
 
     public GameObject progBarPrefab;
 
@@ -41,11 +36,8 @@ public class FactoryController : MonoBehaviour
 
     private GameObject[] foundStations;
     private List<Workstation> stations = new();
-    private bool inEndlessMode = false;
 
     public Material[] alertMaterials;
-
-
 
     Color[] alertColors = { new Color(1, 0, 0), new Color(0.9924106f, 0, 1), new Color(0.66044f, 0, 1), new Color(0.04705951f, 0, 1), new Color(0, 0.7338469f, 1), new Color(0, 1, 0.6611695f), new Color(0, 1, 0), new Color(1, 0.9447687f, 0), new Color(1, 0.6415883f, 0), new Color(0.2578616f, 0.1661031f, 0.1224437f) };
 
@@ -57,14 +49,15 @@ public class FactoryController : MonoBehaviour
 
         SetDifficultyByDay(day);
 
-        inEndlessMode = PlayerPrefs.GetInt("Endless") == 1;
+        timer.SetTimer(_runMinutes);
+
+        SetHighScore();
 
         _timeRemaining = _runMinutes * 60;
         state = FactoryState.STARTING;
 
         Invoke(nameof(FindStations), 0.5f);
-        StartCoroutine(
-                DisplayTheDay());
+        StartCoroutine(DisplayTheDay());
     }
 
     IEnumerator DisplayTheDay()
@@ -87,88 +80,13 @@ public class FactoryController : MonoBehaviour
                 break;
 
             case FactoryState.RUNNING:
-                _timeRemaining -= Time.deltaTime;
-
-                TimeSpan timeSpan = TimeSpan.FromSeconds(_timeRemaining);
-
-                string outMinutes;
-                string outSeconds;
-
-                int minutes = timeSpan.Minutes;
-                if (minutes <= 0)
-                {
-                    outMinutes = "0";
-                }
-                else
-                {
-                    outMinutes = minutes.ToString();
-                }
-
-                int seconds = timeSpan.Seconds;
-                if (seconds < 10)
-                {
-                    outSeconds = "0" + seconds;
-                }
-                else
-                {
-                    outSeconds = seconds.ToString();
-                }
-                clock.clockText.text = outMinutes + ":" + outSeconds;
 
                 if (AllStationsDeleted())
                 {
-                    if (inEndlessMode)
-                    {
-                        state = FactoryState.NEXTDAY;
-                    }
-                    else
-                    {
-                        state = FactoryState.FAILED;
-                    }
+                    StartNextDay();
                 }
 
                 IsAnyMinigameRunning();
-
-                if (_timeRemaining <= 0)
-                {
-                    //Display failure message maybe?
-
-                    state = FactoryState.FAILED;
-                }
-
-                break;
-
-            case FactoryState.FAILED:
-
-                PlayerPrefs.SetInt("Day", 1);
-                PlayerPrefs.Save();
-
-                int highest = PlayerPrefs.GetInt("HighestDay", 1);
-                int dayg = PlayerPrefs.GetInt("Day", 1);
-                if (highest <= dayg)
-                {
-                    PlayerPrefs.SetInt("HighestDay", dayg);
-                    PlayerPrefs.Save();
-                }
-
-                SceneManager.LoadScene("BreakRoom");
-
-                break;
-
-            case FactoryState.NEXTDAY:
-                int highestf = PlayerPrefs.GetInt("HighestDay", 1);
-                int daygf = PlayerPrefs.GetInt("Day", 1);
-                if (highestf <= daygf)
-                {
-                    PlayerPrefs.SetInt("HighestDay", daygf);
-                    PlayerPrefs.Save();
-                }
-
-                int day = PlayerPrefs.GetInt("Day", 1);
-                PlayerPrefs.SetInt("Day", ++day);
-                PlayerPrefs.Save();
-
-                SceneManager.LoadScene("Endless");
 
                 break;
         }
@@ -181,6 +99,14 @@ public class FactoryController : MonoBehaviour
                 return false;
         }
         return true;
+    }
+
+    public void TimerFinished()//Timer manages itself and calls this method when completed
+    {
+        Debug.Log("Day failed returning to breakroom");
+        ResetDay();
+
+        SceneManager.LoadScene("BreakRoom");
     }
 
     void FindStations()
@@ -228,7 +154,6 @@ public class FactoryController : MonoBehaviour
 
         }
     }
-
     void IsAnyMinigameRunning()
     {
         foreach (Workstation workstation in stations)
@@ -265,5 +190,35 @@ public class FactoryController : MonoBehaviour
             _runMinutes = newTime;
         }
         
+    }
+
+    public static void SetHighScore()
+    {
+        int highest = PlayerPrefs.GetInt("HighestDay", 1);
+        int day = PlayerPrefs.GetInt("Day", 1);
+        if (day > highest)
+        {
+            PlayerPrefs.SetInt("HighestDay", day);
+            PlayerPrefs.Save();
+        }
+    }
+    public void StartNextDay()
+    {
+        IncrementDay();
+
+        SceneManager.LoadScene("Endless");
+    }
+
+    public static void IncrementDay() 
+    {
+        int day = PlayerPrefs.GetInt("Day", 1);
+        PlayerPrefs.SetInt("Day", ++day);
+        PlayerPrefs.Save();
+    }
+
+    public static void ResetDay()
+    {
+        PlayerPrefs.SetInt("Day", 1);
+        PlayerPrefs.Save();
     }
 }

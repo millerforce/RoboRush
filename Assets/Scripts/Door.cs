@@ -4,10 +4,7 @@ using UnityEngine.SceneManagement;
 public class Door : MonoBehaviour
 {
     [SerializeField]
-    private string _levelToLoad = "BreakRoom";
-
-    [SerializeField]
-    private int _dayToStart = 1;
+    private string _levelToLoad;
 
     private void OnTriggerStay(Collider other)
     {
@@ -15,24 +12,8 @@ public class Door : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.E)) 
             {
-                if (_levelToLoad.Equals("Endless"))
-                {
-                    PlayerPrefs.SetInt("Endless", _levelToLoad.Equals("Endless") ? 1 : 0);
-                    PlayerPrefs.Save();
-                }
-                else
-                {
-                    PlayerPrefs.SetInt("Day", _dayToStart);
-                    PlayerPrefs.Save();
-                }
 
-                int highest = PlayerPrefs.GetInt("HighestDay", 1);
-                int day = PlayerPrefs.GetInt("Day", 1);
-                if (highest <= day)
-                {
-                    PlayerPrefs.SetInt("HighestDay", day);
-                    PlayerPrefs.Save();
-                }
+                FactoryController.SetHighScore();
 
                 InteractionHintManager.instance.HideHint();
                 

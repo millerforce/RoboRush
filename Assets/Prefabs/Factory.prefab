@@ -517,11 +517,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _runMinutes: 0
-  clock: {fileID: 6019166154905061554}
+  progBarPrefab: {fileID: 0}
   startLocation: {fileID: 5625702327642645110}
   player: {fileID: 8010692596169397217}
   alertMaterials: []
-  progBarPrefab: {fileID: 0}
 --- !u!1 &7012094515664139641
 GameObject:
   m_ObjectHideFlags: 0
@@ -1163,7 +1162,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111951133220556256, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
       propertyPath: m_Name
-      value: Clock
+      value: Timer
       objectReference: {fileID: 0}
     - target: {fileID: 4454048938311224061, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -1185,6 +1184,34 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7185081185796055215, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
+      propertyPath: timerFinished.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7185081185796055215, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
+      propertyPath: timerFinished.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7185081185796055215, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
+      propertyPath: timerFinished.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 881883940770469449}
+    - target: {fileID: 7185081185796055215, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
+      propertyPath: timerFinished.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7185081185796055215, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
+      propertyPath: timerFinished.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TimerFinished
+      objectReference: {fileID: 0}
+    - target: {fileID: 7185081185796055215, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
+      propertyPath: timerFinished.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: FactoryController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7185081185796055215, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
+      propertyPath: timerFinished.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1195,17 +1222,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3628570244732163930, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
   m_PrefabInstance: {fileID: 3476452353796532253}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6019166154905061554 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7185081185796055215, guid: c9ff2bcd756dee34e84d26064782c399, type: 3}
-  m_PrefabInstance: {fileID: 3476452353796532253}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11692f1cbe306a2478f3cd3426032acd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4756348084371683088
 PrefabInstance:
   m_ObjectHideFlags: 0
