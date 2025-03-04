@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Collider playerCollider;
 
+    private Rigidbody rigidbody;
+
     private Animator animator;
 
     private Vector3 _moveDirection;
@@ -34,12 +36,16 @@ public class PlayerController : MonoBehaviour
 
     public bool isPlayingMinigame = false;
 
+    private RigidbodyConstraints baseConstraints;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _moveDirection = Vector2.zero;
         animator = gameObject.GetComponent<Animator>();
         state = PlayerState.IDLE;
+        rigidbody = GetComponent<Rigidbody>();
+        baseConstraints = rigidbody.constraints;
     }
 
     // Update is called once per frame
@@ -48,59 +54,33 @@ public class PlayerController : MonoBehaviour
         _moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")).normalized;
 
         if (!MovementNearZero(_moveDirection) && state != PlayerState.STARTING)
-        {
-            animator.SetBool("isInteracting", false);
-
+        { 
             transform.rotation = Quaternion.LookRotation(_moveDirection);
 
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                state = PlayerState.RUNNING;
-            }
-            else
-            {
-                state = PlayerState.WALKING;
-            }
+            IdleToMoving(Input.GetKey(KeyCode.LeftShift));
         }
         else if (state != PlayerState.INTERACTING && state != PlayerState.STARTING && state != PlayerState.IDLE)
         {
-            state = PlayerState.IDLE;
+            MovingToIdle();
         }
 
-        if (state == PlayerState.IDLE)
+        if (state == PlayerState.WALKING)
         {
-            animator.SetBool("isRunning", false);
-            animator.SetBool("isWalking", false);
-            animator.SetBool("isInteracting", false);
-        }
-        else if (state == PlayerState.WALKING)
-        {
-            animator.SetBool("isRunning", false);
-            animator.SetBool("isWalking", true);
-            animator.SetBool("isInteracting", false);
-
             transform.Translate(WalkSpeed * Time.deltaTime * _moveDirection, Space.World);
         }
         else if (state == PlayerState.RUNNING)
         {
-            animator.SetBool("isRunning", true);
-            animator.SetBool("isWalking", false);
-            animator.SetBool("isInteracting", false);
-
             transform.Translate(SprintSpeed * Time.deltaTime * _moveDirection, Space.World);
         }
-        else if (state == PlayerState.INTERACTING)
+        else if (state == PlayerState.IDLE)
         {
-            animator.SetBool("isRunning", false);
-            animator.SetBool("isWalking", false);
-
-            animator.SetBool("isInteracting", true);
+            rigidbody.linearVelocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
         }
     }
 
     public bool StartAnimation()
-    {
-
+    { 
         if (!transform.position.Equals(_startLocation.position))
         {
             playerCollider.enabled = false;
@@ -126,7 +106,7 @@ public class PlayerController : MonoBehaviour
          
             if (Input.GetKey(KeyCode.E))
             {
-                state = PlayerState.INTERACTING;
+                ToInteracting();
             }
         }
         
@@ -135,5 +115,41 @@ public class PlayerController : MonoBehaviour
     private bool MovementNearZero(Vector3 movement)
     {
         return (movement.magnitude <= 0.6);
+    }
+
+    private void MovingToIdle()
+    {
+        state = PlayerState.IDLE;
+        rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+        animator.SetBool("isRunning", false);
+        animator.SetBool("isWalking", false);
+        animator.SetBool("isInteracting", false);
+    }
+
+    private void IdleToMoving(bool isRunning)
+    {
+        rigidbody.constraints = baseConstraints;
+        if (isRunning)
+        {
+            animator.SetBool("isRunning", true);
+            animator.SetBool("isWalking", false);
+            state = PlayerState.RUNNING;
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+            animator.SetBool("isWalking", true);
+            state = PlayerState.WALKING; 
+        }
+            animator.SetBool("isInteracting", false);
+    }
+
+    private void ToInteracting()
+    {
+        state = PlayerState.INTERACTING;
+        animator.SetBool("isRunning", false);
+        animator.SetBool("isWalking", false);
+
+        animator.SetBool("isInteracting", true);
     }
 }
