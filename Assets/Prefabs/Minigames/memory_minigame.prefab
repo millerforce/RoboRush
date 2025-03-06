@@ -92,7 +92,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7970531421191822614
 Transform:
   m_ObjectHideFlags: 0
@@ -1558,3 +1558,11 @@ MonoBehaviour:
   maxLength: 20
   minLength: 5
   maxLevel: 10
+  passwordList:
+  - password
+  - qwerty
+  - abc123
+  - iamhuman
+  - teamleaderconnor
+  - 1234
+  - 12345

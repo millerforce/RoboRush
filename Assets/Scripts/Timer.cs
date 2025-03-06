@@ -7,8 +7,6 @@ public class Timer : MonoBehaviour
 {
     private TMP_Text timerText;
 
-    private float _timerLength;
-
     private float _timeRemaining;
 
     [SerializeField]

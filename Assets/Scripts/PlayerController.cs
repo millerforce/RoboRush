@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.Translate(SprintSpeed * Time.deltaTime * _moveDirection, Space.World);
         }
-        else if (state == PlayerState.IDLE)
+        else if (state == PlayerState.IDLE || state == PlayerState.INTERACTING)
         {
             rigidbody.linearVelocity = Vector3.zero;
             rigidbody.angularVelocity = Vector3.zero;
