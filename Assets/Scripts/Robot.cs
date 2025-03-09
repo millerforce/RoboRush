@@ -18,10 +18,4 @@ public class Robot : MonoBehaviour
         // Play the animation at the random cycle offset
         animator.Play(animationStateName, 0, randomCycleOffset);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

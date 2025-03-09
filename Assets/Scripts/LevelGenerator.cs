@@ -107,6 +107,7 @@ public class LevelGenerator : MonoBehaviour
                                 grid[gridX + 1, gridY] = 3;
                                 break;
                             case -180:
+                            case 180:
                                 grid[gridX, gridY + 1] = 3;
                                 break;
                         }
